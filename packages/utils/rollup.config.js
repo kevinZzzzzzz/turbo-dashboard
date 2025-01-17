@@ -8,7 +8,7 @@ import alias from "@rollup/plugin-alias" // alias 和 reslove 功能
 import clear from "rollup-plugin-clear"
 import pkg from "./package.json"
 import json from "@rollup/plugin-json"
-import babel from "@rollup/plugin-babel"
+// import babel from "@rollup/plugin-babel"
 // import replace from "@rollup/plugin-replace"
 import nodePolyfills from "rollup-plugin-node-polyfills"
 /**
@@ -28,29 +28,29 @@ export default {
     nodePolyfills(),
     resolve({ jsnext: true, preferBuiltins: true, browser: true }),
     json(),
-    terser(),
+    // terser(),
     commonjs(),
-    babel({
-      babelHelpers: "bundled", // 使用打包的 Babel 辅助方法
-      exclude: "node_modules/**", // 排除 node_modules 中的文件
-      presets: [
-        [
-          "@babel/preset-env",
-          {
-            targets: "> 0.25%, not dead", // 目标浏览器版本
-          },
-        ],
-      ],
-      extensions: [".js", ".ts"], // 处理 js 和 ts 文件
-    }),
+    // babel({
+    //   babelHelpers: "bundled", // 使用打包的 Babel 辅助方法
+    //   exclude: "node_modules/**", // 排除 node_modules 中的文件
+    //   presets: [
+    //     [
+    //       "@babel/preset-env",
+    //       {
+    //         targets: "> 0.25%, not dead", // 目标浏览器版本
+    //       },
+    //     ],
+    //   ],
+    //   extensions: [".js", ".ts"], // 处理 js 和 ts 文件
+    // }),
     // eslint({
     //   fix: true, // 自动修复
     // }),
-    // clear({
-    //   targets: ["dist", "es", "lib", "iife", "docs", "html"],
-    //   watch: true,
-    // }),
-    typescript({ tsconfig: getPath("tsconfig.json"), extensions }),
+    clear({
+      targets: ["dist", "es", "lib", "iife", "docs", "html"],
+      watch: true,
+    }),
+    typescript(),
     alias({
       entries: [{ find: "@", replacement: getPath("src") }],
     }),

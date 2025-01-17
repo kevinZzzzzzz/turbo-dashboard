@@ -4,8 +4,7 @@ import path from "path";
 import { manualChunksPlugin } from "vite-plugin-webpackchunkname";
 import { visualizer } from "rollup-plugin-visualizer";
 import AutoImport from "unplugin-auto-import/vite";
-import * as A from "@dashboard/utils";
-console.log(A);
+import { postcssFun } from "@dashboard/utils";
 
 // https://vitejs.dev/config/
 export default ({ mode, command }) => {
@@ -85,9 +84,9 @@ export default ({ mode, command }) => {
       },
     },
     css: {
-      // postcss: {
-      //   plugins: [postcssFun()],
-      // },
+      postcss: {
+        plugins: [postcssFun()],
+      },
       preprocessorOptions: {
         // 全局样式引入
         scss: {

@@ -23,8 +23,8 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "src/*"
+      "@dashboard/utils": [
+        "packages/utils/src/index.ts"
       ]
     },
     "declaration": true,

@@ -2,6 +2,7 @@
   "name": "@dashboard/utils",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "exports": {
@@ -14,7 +15,7 @@
   "files": [
     "dist"
   ],
-  "types": "./index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "rollup -c -w",
     "build": "rollup -c"
