@@ -38,6 +38,9 @@ export class HttpRequest {
     instance.interceptors.response.use(
       (response: any) => {
         const { status, data } = response
+        if (!data.hasOwnProperty("code")) {
+          data.code = 0
+        }
         return new Promise((resolve, reject) => {
           if (status === 200) {
             if (isMap) {
