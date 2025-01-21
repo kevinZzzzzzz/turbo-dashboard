@@ -14,14 +14,26 @@ import api from "@/api";
 declare global {
   interface Window {
     $api: any;
+    serverTimeDiff: number;
   }
 }
 /* 
   设置全局变量
 */
 window.$api = { ...api };
+// 服务器时间差异值
+window.serverTimeDiff = 0;
 
 function App() {
+  useEffect(() => {
+    /**
+     * 获取服务器时间
+     * 解决机顶盒时间/时区不正确
+     */
+    window.$api.getServerTime().then((res: any) => {
+      window.serverTimeDiff = res.millis - new Date().getTime();
+    });
+  }, []);
   return (
     <HashRouter>
       <Routes>
