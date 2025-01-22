@@ -55,3 +55,13 @@ export const getRealCityName = (d) => {
   }
   return cityName;
 };
+
+export const keyCodeMapper = {
+  btnOK: 13,
+  btnBack: 27,
+  btnUp: 38,
+  btnDown: 40,
+  btnRight: 39,
+  btnLeft: 37,
+  btnInfo: 32,
+};

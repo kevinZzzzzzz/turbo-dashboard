@@ -12,6 +12,8 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "Node",

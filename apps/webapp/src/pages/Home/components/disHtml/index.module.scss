@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 70% 30%;
+  grid-template-columns: 67% 33%;
   &_pageLeft {
     position: relative;
     &_title {
@@ -50,29 +50,43 @@
     &_caption {
       z-index: 2;
       position: absolute;
-      top: 40%;
+      top: 60%;
       left: 2%;
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      grid-gap: 10px;
-      align-items: center;
-      &_img {
-        width: 80px;
-        height: 120px;
-        background: url('@/assets/images/lengend.png') no-repeat;
-        background-size: 100% 100%;
-      }
-      &_list {
-        &_item {
-          font-size: 18px;
-          text-align: right;
-          color: #738293;
-          font-weight: bold;
+      &_mark {
+        display: grid;
+        width: 80%;
+        grid-template-columns: 80px 1fr;
+        grid-gap: 10px;
+        align-items: center;
+        justify-content: center;
+        &_img {
+          width: 80px;
+          height: 120px;
+          background: url('@/assets/images/lengend.png') no-repeat;
+          background-size: 100% 100%;
         }
+        &_list {
+          width: 100%;
+          &_item {
+            font-size: 18px;
+            text-align: center;
+            color: #738293;
+            font-weight: bold;
+          }
+        }
+      }
+      &_statis {
+        margin-top: 30px;
+        // position: absolute;
+        // bottom: 10%;
+        // left: 2%;
+        border: 1px solid #26292d;
+        padding: 10px;
       }
     }
   }
   &_pageRight {
+    width: 100%;
   }
 }
 
@@ -81,4 +95,114 @@
   height: 100%;
   padding-left: 15%;
   margin-bottom: 2%;
+}
+.realTime {
+  max-height: 100vh;
+  border-left: 1px solid #3f444b;
+  &_header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    &_title {
+      color: #fff;
+      font-size: 30px;
+    }
+    &_num {
+      padding: 5px 10px;
+      margin-left: 15px;
+      min-width: 40px;
+      font-size: 24px;
+      color: #f5f5f5;
+      background: #50587c;
+      font-weight: 700;
+      border-radius: 10px;
+    }
+  }
+  &_main {
+    max-height: calc(100vh - 50px);
+    overflow: hidden;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 70%); // 尾部透明度降低
+    background-clip: text; // 背景裁剪为文字形状
+    -webkit-background-clip: text; // 兼容性属性
+    color: transparent; // 文字透明
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    padding-bottom: 10px;
+    &_item {
+      transform: translateX(0);  /* 初始位置 */
+      transition: transform 1s ease;  /* 透明度和位移的过渡效果 */  
+    }
+    /* 给每个列表项添加个性化的动画 */
+    &_item:nth-child(1) {
+      animation: moveIn 2s;
+    }
+  }
+}
+
+.eventItem {
+  width: 100%;
+  padding: 5px 16px 10px 8px;
+  margin: 0px;
+  border-bottom: 1px solid #26292d;
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    &_left {
+      display: flex;
+      align-items: center;
+      p {
+        color: #fff;
+        font-size: 22px;
+      }
+      span {
+        color: #FFA500;
+        font-size: 18px;
+        margin-left: 10px;
+      }
+    }
+    &_right {
+      color: #5e6e84;
+      margin-right: 3px;
+      font-size: 22px;
+    }
+  }
+  &_main {
+    color: #5e6e84;
+    font-size: 22px;
+  }
+}
+@keyframes moveIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);  /* 初始位置：透明且向下偏移 */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);  /* 结束位置：完全可见且返回原位 */
+  }
+}
+
+.statisComp {
+  min-height: 200px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  &_item {
+    p {
+      color: #fff;
+      font-size: 20px;
+    }
+  }
+}
+
+.iconAction {
+  background: url("@/assets/images/icon_action.png") no-repeat;
+  padding-left: 40px;
+  padding-right: 10px;
+  color: #738293;
+  font-weight: bold;
 }

@@ -43,4 +43,20 @@ export default {
       false,
     );
   },
+  async getEventsList(data: number): Promise<AxiosResponse<any, any>> {
+    return await http.get(
+      setProxy(`/service/dashboard/events/dispatch?${funcUtil.prox(data)}`),
+      false,
+    );
+  },
+  async getStatisticsByBloodSubtype(
+    data: number,
+  ): Promise<AxiosResponse<any, any>> {
+    return await http.get(
+      setProxy(
+        `/service/dashboard/statistics/dispatch/bybloodsubtype?${funcUtil.prox(data)}`,
+      ),
+      false,
+    );
+  },
 };

@@ -30,18 +30,16 @@ function MapComp(props: any) {
 
   // 通过value计算color
   function converColor(value) {
-    if (value >= bloodInventMap[bloodType][3]) {
+    if (+value >= bloodInventMap[bloodType][3]) {
       return "rgba(101,28,238,1)";
-    } else if (value >= bloodInventMap[bloodType][2]) {
+    } else if (+value >= bloodInventMap[bloodType][2]) {
       return "rgba(116,68,206,1)";
-    } else if (value >= bloodInventMap[bloodType][1]) {
+    } else if (+value >= bloodInventMap[bloodType][1]) {
       return "rgba(1,149,255,1)";
-    } else if (value >= bloodInventMap[bloodType][0]) {
+    } else if (+value >= bloodInventMap[bloodType][0]) {
       return "rgba(0,216,255,1)";
-    } else if (value >= 0) {
+    } else if (+value >= 0 || !value) {
       return "rgba(8,233,201,1)";
-    } else if (value == 0) {
-      return "#5e6e84";
     }
   }
   // 初始化图表
@@ -96,6 +94,7 @@ function MapComp(props: any) {
       initChart(initOption.current);
     }
   };
+  // 添加展示图层
   const handleBulidMapSeries = (bloodStore, points, dispatch) => {
     let series = [];
     // 地图库存数据
@@ -107,31 +106,26 @@ function MapComp(props: any) {
       symbolSize: symbolsize_store,
       roam: false, //鼠标缩放
       label: {
-        normal: {
-          formatter: "{b}",
-          position: "top",
-          show: true,
-          textStyle: {
-            color: "#5e6e84",
-            //fontFamily: 'SimHei',
-            fontSize: fontsize_city,
-            fontWeight: "bold",
-          },
+        formatter: "{b}",
+        position: "top",
+        show: true,
+        textStyle: {
+          color: "#5e6e84",
+          //fontFamily: 'SimHei',
+          fontSize: fontsize_city,
+          fontWeight: "bold",
         },
       },
       itemStyle: {
-        normal: {
-          color: function (item) {
-            return converColor(item.value[2]);
-          },
-          shadowColor: "rgba(255,255,255,0.3)",
-          shadowOffsetX: 0,
-          shadowOffsetY: 0,
-          shadowBlur: 15,
+        color: function (item) {
+          return converColor(item.value[2]);
         },
+        shadowColor: "rgba(255,255,255,0.3)",
+        shadowOffsetX: 0,
+        shadowOffsetY: 0,
+        shadowBlur: 15,
       },
     });
-
     // 地图调剂的节点数据
     series.push({
       name: "红细胞类血液调剂城市",
@@ -145,23 +139,19 @@ function MapComp(props: any) {
       },
       roam: false, //鼠标缩放
       label: {
-        normal: {
-          formatter: "{b}",
-          position: "top",
-          show: true,
-          textStyle: {
-            //fontFamily: 'SimHei',
-            fontSize: fontsize_city,
-            color: "rgba(6,235,200,1)",
-            fontWeight: "bold",
-          },
+        formatter: "{b}",
+        position: "top",
+        show: true,
+        textStyle: {
+          //fontFamily: 'SimHei',
+          fontSize: fontsize_city,
+          color: "inherit",
+          fontWeight: "bold",
         },
       },
       itemStyle: {
-        normal: {
-          color: function (item) {
-            return converColor(item.value[2]);
-          },
+        color: function (item) {
+          return converColor(item.value[2]);
         },
       },
     });
@@ -173,32 +163,28 @@ function MapComp(props: any) {
       effect: {
         show: true,
         period: 5,
-        symbol: "arrow", //arrow circle arrowPath
+        symbol: "arrow",
         symbolSize: symbolsize_line,
-        color: "rgba(8,233,201,1)", //
+        color: "rgba(8,233,201,1)",
         trailLength: 0, // 0.1
       },
       lineStyle: {
-        normal: {
-          color: "rgba(6,235,200,1)",
-          //type: 'dotted', //dotted dashed
-          width: 1.5,
-          opacity: 0.5,
-          curveness: 0.5,
-        },
+        color: "rgba(6,235,200,1)",
+        // type: "dotted",
+        width: 2,
+        opacity: 0.6,
+        curveness: 0.5,
       },
       label: {
-        normal: {
-          show: true,
-          formatter: "{c}" + bloodtypesunit[bloodType],
-          textStyle: {
-            fontFamily: "SimHei",
-            //fontWeight: 'bold',
-            color: "rgba(6,235,200,1)",
-            fontSize: fontsize_value,
-          },
-          position: "middle",
+        show: true,
+        formatter: "{c}" + bloodtypesunit[bloodType],
+        textStyle: {
+          fontFamily: "SimHei",
+          fontWeight: "bold",
+          color: "rgba(6,235,200,1)",
+          fontSize: fontsize_value,
         },
+        position: "middle",
       },
       animation: false,
       data: dispatch,

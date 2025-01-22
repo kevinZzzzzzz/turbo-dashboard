@@ -2,6 +2,8 @@ import React, { useState, useEffect, memo } from "react";
 import { multiClassName } from "@/utils";
 import styles from "./index.module.scss";
 import MapComp from "./map";
+import RealTimeRecord from "./realTimeRecord";
+import StatisComp from "./statisComp";
 import UseFacility from "@/hooks/useFacility";
 
 const bloodInventoryList = [
@@ -41,10 +43,8 @@ type bloodType = "rbc" | "plt" | "plm" | "crp";
 let bloodStoreData = { rbc: [], plt: [], plm: [], crp: [] };
 let dispatchData = { rbc: [], plt: [], plm: [], crp: [] };
 let pointData = { rbc: [], plt: [], plm: [], crp: [] };
-//默认血型
-let default_bloodgroup = "amount"; //ABO总计
-//获取数据期限
-let getDay = 14;
+//默认统计数据
+// let default_bloodgroup = "amount"; //ABO总计;
 function DisPage(props: any) {
   const [bloodType, setBloodType] = useState<bloodType>("rbc");
   const [bloodStore, setBloodStore] = useState(bloodStoreData);
@@ -55,6 +55,11 @@ function DisPage(props: any) {
 
   useEffect(() => {
     initBulidMap();
+    initstatistics();
+    return () => {
+      console.log(111);
+      setIsMapMounted(false);
+    };
   }, []);
   /**
    * 处理切换血液类型
@@ -80,6 +85,7 @@ function DisPage(props: any) {
     return arrT;
   }, [bloodType]);
 
+  // 初始化地图数据展示
   const initBulidMap = () => {
     const getTypeSumByCity = window.$api.getTypeSumByCity({ type: "all" });
     const getRecords = window.$api.getRecords(45);
@@ -91,7 +97,7 @@ function DisPage(props: any) {
       let dispatch_map = { rbc: {}, plt: {}, plm: {}, crp: {} }; // 同个调拨路径的 MAP
       stores?.forEach((d) => {
         if (d.type) {
-          facilityStore_hash[d.type][d.facility] = d[default_bloodgroup];
+          facilityStore_hash[d.type][d.facility] = d["amount"];
         }
       });
       dispatches?.forEach((m) => {
@@ -186,23 +192,19 @@ function DisPage(props: any) {
             value: [
               facilityInfo.current[o.facility].x,
               facilityInfo.current[o.facility].y,
-              o[default_bloodgroup],
+              o["amount"],
             ],
           });
         }
       });
-      console.log(
-        bloodStoreData,
-        dispatchData,
-        pointData,
-        "bloodStoreData, dispatchData, pointData-----111-----",
-      );
       setIsMapMounted(true);
       setBloodStore(bloodStoreData);
       setDispatchDataStore(dispatchData);
       setPointDataStore(pointData);
     });
   };
+
+  const initstatistics = () => {};
   return (
     <div className={styles.page}>
       <div className={styles.page_pageLeft}>
@@ -227,16 +229,24 @@ function DisPage(props: any) {
           })}
         </ul>
         <div className={styles.page_pageLeft_caption}>
-          <div className={styles.page_pageLeft_caption_img}></div>
-          <ul className={styles.page_pageLeft_caption_list}>
-            {captionList?.map((d, i) => {
-              return (
-                <li className={styles.page_pageLeft_caption_list_item} key={i}>
-                  {d}
-                </li>
-              );
-            })}
-          </ul>
+          <div className={styles.page_pageLeft_caption_mark}>
+            <div className={styles.page_pageLeft_caption_mark_img}></div>
+            <ul className={styles.page_pageLeft_caption_mark_list}>
+              {captionList?.map((d, i) => {
+                return (
+                  <li
+                    className={styles.page_pageLeft_caption_mark_list_item}
+                    key={i}
+                  >
+                    {d}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <div className={styles.page_pageLeft_caption_statis}>
+            <StatisComp />
+          </div>
         </div>
         {isMapMounted && (
           <MapComp
@@ -248,7 +258,9 @@ function DisPage(props: any) {
           />
         )}
       </div>
-      <div className={styles.page_pageRight}></div>
+      <div className={styles.page_pageRight}>
+        <RealTimeRecord facilityInfo={facilityInfo} />
+      </div>
     </div>
   );
 }
