@@ -57,7 +57,7 @@ function DisPage(props: any) {
   const [dispatchDataStore, setDispatchDataStore] = useState(dispatchData);
   const [pointDataStore, setPointDataStore] = useState(pointData);
   const [isMapMounted, setIsMapMounted] = useState(false);
-  const { facilityInfo } = UseFacility();
+  const { facilityInfo, getFacilityName } = UseFacility();
 
   useEffect(() => {
     initBuildMap();
@@ -286,7 +286,10 @@ function DisPage(props: any) {
         )}
       </div>
       <div className={styles.page_pageRight}>
-        <RealTimeRecord facilityInfo={facilityInfo} />
+        <RealTimeRecord
+          facilityInfo={facilityInfo}
+          getFacilityName={getFacilityName}
+        />
       </div>
     </div>
   );

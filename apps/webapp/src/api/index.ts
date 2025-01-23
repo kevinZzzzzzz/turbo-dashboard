@@ -9,19 +9,19 @@ const setProxy = (url: string): string => {
 console.log(import.meta.env, "环境变量");
 
 export default {
-  async getServerTime(data: any = {}): Promise<AxiosResponse<any, any>> {
+  async getServerTime(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
       setProxy(`/service/dashboard/servertime${formatGetParams(data)}`),
       false,
     );
   },
-  async getFacility(data: any = {}): Promise<AxiosResponse<any, any>> {
+  async getFacility(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
       setProxy(`/service/dashboard/dicts/facility${formatGetParams(data)}`),
       false,
     );
   },
-  async getTypeSumByCity(data: any = {}): Promise<AxiosResponse<any, any>> {
+  async getTypeSumByCity(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
       setProxy(
         `/service/dashboard/statistics/bloodstore/typesumbycity${formatGetParams(data)}`,
@@ -35,7 +35,7 @@ export default {
       false,
     );
   },
-  async getReimTotal(data: any = {}): Promise<AxiosResponse<any, any>> {
+  async getReimTotal(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
       setProxy(
         `/service/dashboard/statistics/reimTotal${formatGetParams(data)}`,
@@ -58,5 +58,26 @@ export default {
       ),
       false,
     );
+  },
+  async getReimRelation(data?: any): Promise<AxiosResponse<any, any>> {
+    return await http.get(
+      setProxy(
+        `/service/dashboard/statistics/v1/reimRelation${formatGetParams(data)}`,
+      ),
+      false,
+    );
+  },
+  async getReimFacilityStatistics(
+    data?: any,
+  ): Promise<AxiosResponse<any, any>> {
+    return await http.get(
+      setProxy(
+        `/service/dashboard/statistics/reimFacility${formatGetParams(data)}`,
+      ),
+      false,
+    );
+  },
+  async getOnline(data?: any): Promise<AxiosResponse<any, any>> {
+    return await http.get(setProxy(`/service/network/status`), false);
   },
 };

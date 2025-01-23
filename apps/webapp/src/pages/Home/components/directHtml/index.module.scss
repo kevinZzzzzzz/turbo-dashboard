@@ -1,0 +1,178 @@
+.page {
+  width: 100vw;
+  height: 100vh;
+  background: #1d1f28 url(@/assets/images/hosreimBg.png) no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+  &_header {
+    width: 100%;
+    height: 100px;
+    display: grid;
+    grid-template-columns: 500px 1fr;
+    background: url(@/assets/images/hosreimBgTop.png) no-repeat;
+    background-position: left center;
+    background-size: 500px 100%;
+    &_title {
+      width: 500px;
+      height: 100%;
+      line-height: 100px;
+      h1 {
+        font-size: 30px;
+        color: #fff;
+        font-weight: 400;
+        padding: 0px 0 0px 26px;
+        text-shadow:
+          0.5rem 0rem 0.8rem #006fd8,
+          -0.5rem 0rem 0.8rem #006fd8,
+          0rem 0.5rem 0.8rem #006fd8,
+          0rem -0.5rem 0.8rem #006fd8;
+      }
+    }
+  }
+  &_main {
+    width: 100%;
+    padding: 0px 20px 10px;
+    height: calc(100% - 100px);
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-gap: 20px;
+    &_left {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(4, 1fr);
+      grid-gap: 10px;
+    }
+  }
+}
+
+.headerStatis {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  &_item {
+    width: 100%;
+    font-size: 20px;
+    &_title {
+      color: #fff;
+    }
+    &_num {
+      display: flex;
+      align-items: baseline;
+      font-weight: 400;
+      sub {
+        font-size: 16px;
+        color: #ffffff80;
+        margin-left: 5px;
+      }
+    }
+  }
+}
+.directType {
+  &_main {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+    align-items: flex-start;
+    padding: 20px 0 10px;
+    &_item {
+      display: flex;
+      align-items: center;
+      &_icon {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+        span {
+          display: block;
+          width: 50px;
+          height: 50px;
+          background-size: 50px 50px;
+        }
+      }
+      &_info {
+        h2 {
+          font-size: 18px;
+          color: rgba(255, 255, 255, 0.5);
+          font-weight: 400;
+        }
+        &_list {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-gap: 10px;
+          p {
+            font-size: 34px;
+            display: flex;
+            align-items: baseline;
+            font-weight: 400;
+            sub {
+              font-size: 16px;
+              color: #ffffff80;
+              margin-left: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.relationStatic {
+  width: 100%;
+  height: 100%;
+  &_map {
+    width: 100%;
+    height: 100%;
+    background: url("@/assets/images/relation-bg-icon.svg") no-repeat center
+      center;
+  }
+}
+.DirectCaseStatic {
+  width: 100%;
+  height: 100%;
+  &_map {
+    width: 100%;
+    height: 100%;
+  }
+}
+.DirectRate {
+  width: 100%;
+  height: 100%;
+  &_map {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    &_num {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 50px;
+      color: #fff;
+      font-family: AvantGardeITCbyBT-Medium;
+      display: flex;
+      align-items: baseline;
+      font-weight: 400;
+      sub {
+        font-size: 28px;
+        color: #ffffff80;
+        margin-left: 5px;
+      }
+    }
+  }
+}
+.DirectMap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  &_map {
+    width: 100%;
+    height: 100%;
+  }
+  &_control {
+    position: absolute;
+  }
+}

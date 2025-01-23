@@ -10,7 +10,7 @@ const time = 10000;
 function RealTimeRecord(props: any) {
   const [recordAllList, setRecordAllList] = useState([]);
   const recordRef = useRef(null);
-  const { facilityInfo } = props;
+  const { facilityInfo, getFacilityName } = props;
   useEffect(() => {
     getEventData();
     timeRef = setInterval(() => {
@@ -139,15 +139,15 @@ function RealTimeRecord(props: any) {
   };
 
   //通过机构标号获取名称
-  function getFacilityName(facility) {
-    if (facilityInfo.current.hasOwnProperty(facility)) {
-      return facilityInfo.current[facility].name;
-    } else if (facilityInfo.current.hasOwnProperty(facility.substring(0, 5))) {
-      return facilityInfo.current[facility.substring(0, 5)].name;
-    } else {
-      return "";
-    }
-  }
+  // function getFacilityName(facility) {
+  //   if (facilityInfo.current.hasOwnProperty(facility)) {
+  //     return facilityInfo.current[facility].name;
+  //   } else if (facilityInfo.current.hasOwnProperty(facility.substring(0, 5))) {
+  //     return facilityInfo.current[facility.substring(0, 5)].name;
+  //   } else {
+  //     return "";
+  //   }
+  // }
 
   return (
     <div className={styles.realTime}>

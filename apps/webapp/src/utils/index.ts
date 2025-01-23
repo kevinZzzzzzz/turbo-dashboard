@@ -65,3 +65,31 @@ export const keyCodeMapper = {
   btnLeft: 37,
   btnInfo: 32,
 };
+
+/**
+ *    数据标准化
+ *    params：num
+ */
+export const formatNum = function (num: number | string) {
+  if (typeof num !== "number" && typeof num !== "string") return;
+  if (typeof num === "string" && num.includes("%")) return num;
+  if (!num) return 0;
+  const nums = typeof num === "number" ? num + "" : num;
+  function formatN(data) {
+    return data
+      .split("")
+      .reverse()
+      .reduce((prev, next, index) => {
+        return (index % 3 ? next : next + ",") + prev;
+      });
+  }
+  let result: any = 0;
+  if (nums.includes(".")) {
+    const a = nums.split(".")[0];
+    const b = nums.split(".")[1];
+    result = formatN(a) + "." + formatN(b);
+  } else {
+    result = formatN(nums);
+  }
+  return result;
+};

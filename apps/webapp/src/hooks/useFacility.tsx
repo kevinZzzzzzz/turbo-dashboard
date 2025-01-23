@@ -37,6 +37,28 @@ function UseFacility() {
       facilityInfo.current = facilityInfoT;
     }
   };
-  return { facilityInfo };
+
+  //通过机构标号获取名称
+  function getFacilityName(facility) {
+    if (facilityInfo.current.hasOwnProperty(facility)) {
+      return facilityInfo.current[facility].name;
+    } else if (facilityInfo.current.hasOwnProperty(facility.substring(0, 5))) {
+      return facilityInfo.current[facility.substring(0, 5)].name;
+    } else {
+      return "";
+    }
+  }
+
+  // 多条件通过机构码获取名称
+  const getFacilityValue = function (facility, type) {
+    if (facilityInfo.current.hasOwnProperty(facility)) {
+      return facilityInfo.current[facility][type];
+    } else if (facilityInfo.current.hasOwnProperty(facility.substring(0, 5))) {
+      return facilityInfo.current[facility.substring(0, 5)][type];
+    } else {
+      return "";
+    }
+  };
+  return { facilityInfo, getFacilityName, getFacilityValue };
 }
 export default UseFacility;

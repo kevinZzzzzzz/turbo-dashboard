@@ -1,0 +1,78 @@
+.BoxComp {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #6782a7;
+  background-color: rgba(10, 130, 167, 0.03);
+  padding: 6px;
+  &_header {
+    width: 100%;
+    height: 30px;
+    position: relative;
+    &_line {
+      margin: 0 4px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      h1 {
+        height: 24px;
+        font-size: 20px;
+        line-height: 24px;
+        padding-left: 6px;
+        color: #fff;
+        background-image: linear-gradient(
+          to right,
+          rgba(77, 142, 208, 0.27),
+          rgba(77, 142, 208, 0) 90%
+        );
+      }
+      small {
+        font-weight: 400;
+        color: #777;
+      }
+    }
+  }
+  &_header::before,
+  &_header::after {
+    position: absolute;
+    content: "";
+    width: 12px;
+    height: 12px;
+  }
+  &_header::before {
+    top: -6px;
+    left: -6px;
+    border-top: 4px solid #6782a7;
+    border-left: 4px solid #6782a7;
+  }
+  &_header::after {
+    top: -6px;
+    right: -6px;
+    border-top: 4px solid #6782a7;
+    border-right: 4px solid #6782a7;
+  }
+  &_main {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 30px);
+  }
+  &_main::before,
+  &_main::after {
+    position: absolute;
+    content: "";
+    width: 12px;
+    height: 12px;
+  }
+  &_main::before {
+    bottom: -6px;
+    left: -6px;
+    border-bottom: 2px solid #6782a7;
+    border-left: 2px solid #6782a7;
+  }
+  &_main::after {
+    bottom: -6px;
+    right: -6px;
+    border-bottom: 2px solid #6782a7;
+    border-right: 2px solid #6782a7;
+  }
+}
