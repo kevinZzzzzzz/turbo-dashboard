@@ -6,7 +6,6 @@ import { keyCodeMapper } from "@/utils";
 function HomePage(props: any) {
   const [switcherNum, setSwitcherNum] = useState(1);
   const BlockComp = memo((props: any) => {
-    console.log(props.switcherNum, "props.switcherNum00000000");
     const componentMap = {
       1: DirectComp,
       2: DisHtml,
@@ -15,37 +14,29 @@ function HomePage(props: any) {
     return Component ? <Component /> : null;
   });
   useEffect(() => {
-    // initKeydown();
+    initKeydown(true);
+    return () => {
+      initKeydown(false);
+    };
   }, []);
 
-  const initKeydown = () => {
-    window.addEventListener("keydown", (event: any) => {
-      console.log(event.keyCode);
-      event.preventDefault();
-      switch (event.keyCode) {
-        case keyCodeMapper.btnLeft:
-          handleSwitch("left");
-          break;
-        case keyCodeMapper.btnRight:
-          handleSwitch("right");
-          break;
-        default:
-          break;
-      }
-    });
-  };
-  const handleSwitch = (dire: "left" | "right") => {
-    console.log(switcherNum, "props.switcherNum1111");
-    switch (dire) {
-      case "left":
-        setSwitcherNum((pre) => (pre == 1 ? 2 : pre--));
-        break;
-      case "right":
-        setSwitcherNum((pre) => (pre == 2 ? 1 : pre++));
-        break;
-      default:
-        break;
-    }
+  const initKeydown = (flag) => {
+    window[flag ? "addEventListener" : "removeEventListener"](
+      "keydown",
+      (event: any) => {
+        event.preventDefault();
+        switch (event.keyCode) {
+          case keyCodeMapper.btnLeft:
+            setSwitcherNum((pre) => (pre == 1 ? 2 : 1));
+            break;
+          case keyCodeMapper.btnRight:
+            setSwitcherNum((pre) => (pre == 2 ? 1 : 2));
+            break;
+          default:
+            break;
+        }
+      },
+    );
   };
   return (
     <div className={styles.pageBody}>

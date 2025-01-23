@@ -1,5 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
-import { multiClassName } from "@/utils";
+import { keyCodeMapper, multiClassName } from "@/utils";
 import styles from "./index.module.scss";
 import MapComp from "./map";
 import RealTimeRecord from "./realTimeRecord";
@@ -24,6 +24,12 @@ const bloodInventoryList = [
     value: "crp",
   },
 ];
+enum bloodInventoryKeyMap {
+  "rbc" = 0,
+  "plt" = 1,
+  "plm" = 2,
+  "crp" = 3,
+}
 const bloodInventMap = {
   rbc: [1000, 3000, 5000, 8000],
   plt: [50, 100, 200, 500],
@@ -39,13 +45,13 @@ enum bloodInventoryEnum {
 type bloodType = "rbc" | "plt" | "plm" | "crp";
 //分界值数组
 
-//血液库存与调剂数据对象
-let bloodStoreData = { rbc: [], plt: [], plm: [], crp: [] };
-let dispatchData = { rbc: [], plt: [], plm: [], crp: [] };
-let pointData = { rbc: [], plt: [], plm: [], crp: [] };
 //默认统计数据
 // let default_bloodgroup = "amount"; //ABO总计;
 function DisPage(props: any) {
+  //血液库存与调剂数据对象
+  let bloodStoreData = { rbc: [], plt: [], plm: [], crp: [] };
+  let dispatchData = { rbc: [], plt: [], plm: [], crp: [] };
+  let pointData = { rbc: [], plt: [], plm: [], crp: [] };
   const [bloodType, setBloodType] = useState<bloodType>("rbc");
   const [bloodStore, setBloodStore] = useState(bloodStoreData);
   const [dispatchDataStore, setDispatchDataStore] = useState(dispatchData);
@@ -54,11 +60,12 @@ function DisPage(props: any) {
   const { facilityInfo } = UseFacility();
 
   useEffect(() => {
-    initBulidMap();
-    initstatistics();
+    initBuildMap();
+    initStatistics();
+    initKeydown(true);
     return () => {
-      console.log(111);
       setIsMapMounted(false);
+      initKeydown(false);
     };
   }, []);
   /**
@@ -86,7 +93,7 @@ function DisPage(props: any) {
   }, [bloodType]);
 
   // 初始化地图数据展示
-  const initBulidMap = () => {
+  const initBuildMap = () => {
     const getTypeSumByCity = window.$api.getTypeSumByCity({ type: "all" });
     const getRecords = window.$api.getRecords(45);
     Promise.all([getTypeSumByCity, getRecords]).then((res: any) => {
@@ -203,8 +210,28 @@ function DisPage(props: any) {
       setPointDataStore(pointData);
     });
   };
-
-  const initstatistics = () => {};
+  const initKeydown = (flag) => {
+    let pointIdx = bloodInventoryKeyMap[bloodType];
+    window[flag ? "addEventListener" : "removeEventListener"](
+      "keydown",
+      (event: any) => {
+        event.preventDefault();
+        switch (event.keyCode) {
+          case keyCodeMapper.btnUp:
+            pointIdx = !pointIdx ? 3 : pointIdx - 1;
+            handleChangeBloodType(bloodInventoryKeyMap[pointIdx]);
+            break;
+          case keyCodeMapper.btnDown:
+            pointIdx = pointIdx == 3 ? 0 : pointIdx + 1;
+            handleChangeBloodType(bloodInventoryKeyMap[pointIdx]);
+            break;
+          default:
+            break;
+        }
+      },
+    );
+  };
+  const initStatistics = () => {};
   return (
     <div className={styles.page}>
       <div className={styles.page_pageLeft}>

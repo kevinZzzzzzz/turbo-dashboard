@@ -53,23 +53,25 @@
       top: 60%;
       left: 2%;
       &_mark {
-        display: grid;
-        width: 80%;
-        grid-template-columns: 80px 1fr;
-        grid-gap: 10px;
+        width: 100%;
+        display: flex;
+        // width: 80%;
+        // grid-template-columns: 40% 60%;
+        // grid-gap: 10px;
         align-items: center;
         justify-content: center;
         &_img {
           width: 80px;
           height: 120px;
+          margin-right: 20px;
           background: url('@/assets/images/lengend.png') no-repeat;
           background-size: 100% 100%;
         }
         &_list {
-          width: 100%;
+          // width: 100%;
           &_item {
             font-size: 18px;
-            text-align: center;
+            text-align: right;
             color: #738293;
             font-weight: bold;
           }
