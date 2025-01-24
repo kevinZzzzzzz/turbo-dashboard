@@ -6,10 +6,10 @@ function BoxComp(props: any) {
     <div className={styles.BoxComp}>
       <div className={styles.BoxComp_header}>
         <div className={styles.BoxComp_header_line}>
-          <h1>
+          <div className={styles.BoxComp_header_line_left}>
             <span className={icon}></span>
             {title}
-          </h1>
+          </div>
           <small>{subTitle}</small>
         </div>
       </div>

@@ -9,6 +9,9 @@ import DirectCaseStatic from "./directCaseStatic";
 import UseFacility from "@/hooks/useFacility";
 import DirectRate from "./directRate";
 import DirectMap from "./directMap";
+import DirectBloodTrend from "./directBloodTrend";
+import DirectRealTimeDynamic from "./directRealTimeDynamic";
+import UseReload from "@/hooks/useReload";
 
 let relationChartDataSort = ["本人", "配偶", "父母", "子女", "其他"];
 let today = getTheMoment();
@@ -20,7 +23,8 @@ let loadType = "全省";
 let loadAreaType1 = "城市";
 let loadAreaType2 = "各市";
 function directHtml(props: any) {
-  const { facilityInfo, getFacilityValue } = UseFacility();
+  const { facilityInfo, getFacilityValue, getRealFacilityCode } = UseFacility();
+  const { reloadNum } = UseReload();
   const [totalData, setTotalData] = useState({});
   const [relationNumData, setRelationNumData] = useState({
     "per-people": 0,
@@ -35,17 +39,21 @@ function directHtml(props: any) {
     { value: 0, name: "子女" },
     { value: 0, name: "其他" },
   ]);
+  const [directBloodTrendData, setDirectBloodTrendData] = useState([]);
   const [reimbursementChartData, setReimbursementChartData] = useState({});
   const [reimburPerChartData, setReimburPerChartData] = useState([
     { value: 0, name: "医院直免数" },
     { value: 0, name: "血站报销数" },
   ]);
   const [reimburPeMapData, setReimburPerMapData] = useState({});
+  const [dispatchEvents, setDispatchEvents] = useState([]);
   useEffect(() => {
     getReimTotalData();
     getReimRelationData();
     getReimFacilityStatisData();
-  }, []);
+    getReimDayData();
+    getReimDetailData();
+  }, [reloadNum]);
   // 获取顶部统计数据
   const getReimTotalData = () => {
     window.$api.getReimTotal().then((res: any) => {
@@ -158,7 +166,27 @@ function directHtml(props: any) {
       setReimburPerMapData(mapData);
     });
   };
-
+  const getReimDayData = () => {
+    window.$api
+      .getReimDay({
+        startTime,
+        endTime,
+      })
+      .then((res: any) => {
+        res && setDirectBloodTrendData(res);
+      });
+  };
+  const getReimDetailData = () => {
+    window.$api
+      .getReimDetail({
+        startTime:
+          moment(today).subtract(2, "day").format("YYYY-MM-DD") + " 00:00:00",
+        endTime: moment(today).format("YYYY-MM-DD") + " 23:59:59",
+      })
+      .then((res: any) => {
+        setDispatchEvents(res);
+      });
+  };
   return (
     <div className={styles.page}>
       <div className={styles.page_header}>
@@ -185,9 +213,24 @@ function directHtml(props: any) {
           />
         </div>
         <div className={styles.page_main_center}>
-          <DirectMap />
+          <DirectMap
+            reimburPeMapData={reimburPeMapData}
+            facilityInfo={facilityInfo.current}
+          />
         </div>
-        <div className={styles.page_main_right}></div>
+        <div className={styles.page_main_right}>
+          <DirectBloodTrend
+            loadType={loadType}
+            directBloodTrendData={directBloodTrendData}
+          />
+          <DirectRealTimeDynamic
+            loadType={loadType}
+            facilityInfo={facilityInfo.current}
+            dispatchEvents={dispatchEvents}
+            getRealFacilityCode={getRealFacilityCode}
+            getFacilityValue={getFacilityValue}
+          />
+        </div>
       </div>
     </div>
   );

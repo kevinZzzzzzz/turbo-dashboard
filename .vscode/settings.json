@@ -8,5 +8,8 @@
   "marscode.codeCompletionPro": {
     "enableCodeCompletionPro": false
   },
-  "marscode.enableInlineCommand": true
+  "marscode.enableInlineCommand": true,
+  "cSpell.words": [
+    "reim"
+  ]
 }

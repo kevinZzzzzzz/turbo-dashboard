@@ -80,4 +80,18 @@ export default {
   async getOnline(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(setProxy(`/service/network/status`), false);
   },
+  async getReimDay(data?: any): Promise<AxiosResponse<any, any>> {
+    return await http.get(
+      setProxy(`/service/dashboard/statistics/reimDay${formatGetParams(data)}`),
+      false,
+    );
+  },
+  async getReimDetail(data?: any): Promise<AxiosResponse<any, any>> {
+    return await http.get(
+      setProxy(
+        `/service/dashboard/statistics/v1/reimDetail${formatGetParams(data)}`,
+      ),
+      false,
+    );
+  },
 };

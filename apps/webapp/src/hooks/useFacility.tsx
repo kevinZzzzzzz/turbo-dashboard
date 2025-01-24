@@ -59,6 +59,29 @@ function UseFacility() {
       return "";
     }
   };
-  return { facilityInfo, getFacilityName, getFacilityValue };
+  //通过机构码获取与字典一致的机构码
+  const getRealFacilityCode = function (facility) {
+    if (facility) {
+      let code = facility;
+      if (code.length === 12) {
+        code = facility.substring(0, 7);
+      } else if (code.length === 10) {
+        code = facility.substring(0, 5);
+      }
+
+      if (facilityInfo.hasOwnProperty(code)) {
+        return code;
+      } else if (facilityInfo.hasOwnProperty(code.substring(0, 5))) {
+        return code.substring(0, 5);
+      }
+    }
+    return facility;
+  };
+  return {
+    facilityInfo,
+    getFacilityName,
+    getFacilityValue,
+    getRealFacilityCode,
+  };
 }
 export default UseFacility;

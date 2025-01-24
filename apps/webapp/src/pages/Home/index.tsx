@@ -15,8 +15,10 @@ function HomePage(props: any) {
   });
   useEffect(() => {
     initKeydown(true);
+    initResize(true);
     return () => {
       initKeydown(false);
+      initResize(false);
     };
   }, []);
 
@@ -37,6 +39,11 @@ function HomePage(props: any) {
         }
       },
     );
+  };
+  const initResize = (flag) => {
+    window[flag ? "addEventListener" : "removeEventListener"]("resize", () => {
+      window.location.reload();
+    });
   };
   return (
     <div className={styles.pageBody}>

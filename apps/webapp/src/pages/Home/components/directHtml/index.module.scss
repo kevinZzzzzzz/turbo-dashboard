@@ -41,6 +41,15 @@
       display: grid;
       grid-template-columns: 1fr;
       grid-template-rows: repeat(4, 1fr);
+      justify-content: space-evenly;
+      grid-gap: 10px;
+    }
+    &_right {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 3fr;
+      justify-content: space-evenly;
       grid-gap: 10px;
     }
   }
@@ -72,9 +81,10 @@
   }
 }
 .directType {
+  width: 100%;
   &_main {
     width: 100%;
-    height: 100%;
+    // height: 100%;
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 20px;
@@ -174,5 +184,98 @@
   }
   &_control {
     position: absolute;
+    bottom: 30px;
+    z-index: 1;
+    padding: 10px 20px;
+    border: 1px solid #293240;
+    &_item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      font-size: 20px;
+      color: #979ba7;
+      margin-bottom: 4px;
+      span {
+        margin-right: 10px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.DirectBloodTrend {
+  width: 100%;
+  height: 100%;
+  &_map {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.DirectRealTimeDynamic {
+  width: 100%;
+  height: 100%;
+  &_title {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    &_num {
+      margin-left: 5px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 16px;
+      background-color: #006fd8;
+      color: #fff;
+    }
+  }
+  &_list {
+    height: 62vh;
+    // overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    padding: 5px 10px;
+    &_item {
+      transform: translateX(0); /* 初始位置 */
+      transition: transform 1s ease; /* 透明度和位移的过渡效果 */
+    }
+    /* 给每个列表项添加个性化的动画 */
+    &_item:nth-child(1) {
+      animation: moveIn 2s;
+    }
+  }
+  &_eventItem {
+    width: 100%;
+    border-bottom: 1px solid #26292d;
+    &_header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      span {
+        color: #fff;
+        font-size: 20px;
+      }
+    }
+    &_ctx {
+      margin: 10px 0;
+      padding: 0 5px;
+      font-size: 20px;
+      color: #9eabbd;
+      line-height: 1.5;
+    }
+  }
+}
+
+@keyframes moveIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%); /* 初始位置：透明且向下偏移 */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%); /* 结束位置：完全可见且返回原位 */
   }
 }
