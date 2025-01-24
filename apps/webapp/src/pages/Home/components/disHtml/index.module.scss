@@ -31,7 +31,7 @@
         &-active {
           color: #fff;
         }
-        &-active::before { 
+        &-active::before {
           background-color: #fff !important;
           width: 15px !important;
           height: 15px !important;
@@ -39,7 +39,7 @@
         }
       }
       &_item::before {
-        content: '';
+        content: "";
         width: 10px;
         height: 10px;
         border-radius: 50%;
@@ -67,7 +67,7 @@
           width: 80px;
           height: 120px;
           margin-right: 20px;
-          background: url('@/assets/images/lengend.png') no-repeat;
+          background: url("@/assets/images/lengend.png") no-repeat;
           background-size: 100% 100%;
         }
         &_list {
@@ -86,7 +86,7 @@
         // bottom: 10%;
         // left: 2%;
         border: 1px solid #26292d;
-        padding: 10px;
+        padding: 10px 20px;
       }
     }
   }
@@ -127,7 +127,11 @@
   &_main {
     max-height: calc(100vh - 50px);
     overflow: hidden;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 70%); // 尾部透明度降低
+    background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0),
+      #fff 70%
+    ); // 尾部透明度降低
     background-clip: text; // 背景裁剪为文字形状
     -webkit-background-clip: text; // 兼容性属性
     color: transparent; // 文字透明
@@ -136,8 +140,8 @@
     grid-gap: 10px;
     padding-bottom: 10px;
     &_item {
-      transform: translateX(0);  /* 初始位置 */
-      transition: transform 1s ease;  /* 透明度和位移的过渡效果 */  
+      transform: translateX(0); /* 初始位置 */
+      transition: transform 1s ease; /* 透明度和位移的过渡效果 */
     }
     /* 给每个列表项添加个性化的动画 */
     &_item:nth-child(1) {
@@ -164,7 +168,7 @@
         font-size: 22px;
       }
       span {
-        color: #FFA500;
+        color: #ffa500;
         font-size: 18px;
         margin-left: 10px;
       }
@@ -183,16 +187,18 @@
 @keyframes moveIn {
   from {
     opacity: 0;
-    transform: translateX(100%);  /* 初始位置：透明且向下偏移 */
+    transform: translateX(100%); /* 初始位置：透明且向下偏移 */
   }
   to {
     opacity: 1;
-    transform: translateX(0%);  /* 结束位置：完全可见且返回原位 */
+    transform: translateX(0%); /* 结束位置：完全可见且返回原位 */
   }
 }
 
 .statisComp {
   min-height: 200px;
+  max-height: 500px;
+  overflow: auto;
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 10px;
