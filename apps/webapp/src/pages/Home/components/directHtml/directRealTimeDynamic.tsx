@@ -134,14 +134,19 @@ function DirectRealTimeDynamic(props: any) {
         icon="box6-icon"
       >
         <div className={styles.DirectRealTimeDynamic_list} ref={recordRef}>
-          {logList.length &&
+          {logList.length ? (
             logList?.map((d, i) => {
               return (
                 <div className={styles.DirectRealTimeDynamic_list_item} key={i}>
                   <EventItem info={d} />
                 </div>
               );
-            })}
+            })
+          ) : (
+            <p className={styles["DirectRealTimeDynamic_list-empty"]}>
+              暂无数据
+            </p>
+          )}
         </div>
       </BoxComp>
     </div>

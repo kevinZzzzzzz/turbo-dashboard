@@ -139,6 +139,12 @@
     grid-template-columns: 1fr;
     grid-gap: 10px;
     padding-bottom: 10px;
+
+    &-empty {
+      font-size: 24px;
+      color: #fff;
+      text-align: center;
+    }
     &_item {
       transform: translateX(0); /* 初始位置 */
       transition: transform 1s ease; /* 透明度和位移的过渡效果 */
