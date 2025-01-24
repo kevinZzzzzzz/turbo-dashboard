@@ -18,8 +18,9 @@ let options = {
   grid: {
     width: "84%",
     height: "60%",
-    left: 18,
-    top: 20,
+    left: "8%",
+    right: "8%",
+    top: 30,
   },
   axisLabel: {
     color: "#fff",

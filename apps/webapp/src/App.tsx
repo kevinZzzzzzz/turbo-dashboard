@@ -25,16 +25,22 @@ window.$api = { ...api };
 window.serverTimeDiff = 0;
 
 function App() {
+  const [canMounted, setCanMounted] = useState(false);
   useEffect(() => {
     /**
      * 获取服务器时间
      * 解决机顶盒时间/时区不正确
      */
-    window.$api.getServerTime().then((res: any) => {
-      window.serverTimeDiff = res.millis - new Date().getTime();
-    });
+    window.$api
+      .getServerTime()
+      .then((res: any) => {
+        window.serverTimeDiff = res.millis - new Date().getTime();
+      })
+      .finally(() => {
+        setCanMounted(true);
+      });
   }, []);
-  return (
+  return canMounted ? (
     <HashRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/home" />}></Route>
@@ -54,6 +60,6 @@ function App() {
         })}
       </Routes>
     </HashRouter>
-  );
+  ) : null;
 }
 export default App;
