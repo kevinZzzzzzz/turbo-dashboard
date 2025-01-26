@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -9,7 +10,12 @@ p {
   margin: 0;
   padding: 0;
 }
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
 }
 ul {
@@ -21,5 +27,112 @@ ul {
 }
 * {
   box-sizing: border-box;
-  font-family: 'PingFangSC-Regular', 'PingFang SC';
+  font-family: "PingFangSC-Regular", "PingFang SC";
+}
+span.sum1-icon {
+  line-height: 20px;
+  padding-left: 20px;
+  margin-right: 10px;
+  background: url("@/assets/images/sum1-icon.svg") no-repeat center center;
+  background-size: 20px 20px;
+}
+span.sum2-icon {
+  line-height: 20px;
+  padding-left: 20px;
+  margin-right: 10px;
+  background: url("@/assets/images/sum2-icon.svg") no-repeat center center;
+  background-size: 20px 20px;
+}
+span.sum3-icon {
+  line-height: 20px;
+  padding-left: 20px;
+  margin-right: 10px;
+  background: url("@/assets/images/sum3-icon.svg") no-repeat center center;
+  background-size: 20px 20px;
+}
+span.sum4-icon {
+  line-height: 20px;
+  padding-left: 20px;
+  margin-right: 10px;
+  background: url("@/assets/images/sum4-icon.svg") no-repeat center center;
+  background-size: 20px 20px;
+}
+span.sum5-icon {
+  line-height: 20px;
+  padding-left: 20px;
+  margin-right: 10px;
+  background: url("@/assets/images/sum5-icon.svg") no-repeat center center;
+  background-size: 20px 20px;
+}
+span.sum6-icon {
+  line-height: 20px;
+  padding-left: 20px;
+  margin-right: 10px;
+  background: url("@/assets/images/sum6-icon.svg") no-repeat center center;
+  background-size: 20px 20px;
+}
+span.box1-icon {
+  line-height: 18px;
+  padding-left: 20px;
+  margin-right: 10px;
+  background: url("@/assets/images/box1-icon.svg") no-repeat center center;
+  background-size: 24px 24px;
+}
+span.box2-icon {
+  line-height: 18px;
+  padding-left: 20px;
+  margin-right: 10px;
+  background: url("@/assets/images/box2-icon.svg") no-repeat center center;
+  background-size: 24px 24px;
+}
+span.box3-icon {
+  line-height: 18px;
+  padding-left: 20px;
+  margin-right: 10px;
+  background: url("@/assets/images/box3-icon.svg") no-repeat center center;
+  background-size: 24px 24px;
+}
+span.box4-icon {
+  line-height: 18px;
+  padding-left: 20px;
+  margin-right: 10px;
+  background: url("@/assets/images/box4-icon.svg") no-repeat center center;
+  background-size: 24px 24px;
+}
+span.box5-icon {
+  line-height: 18px;
+  padding-left: 20px;
+  margin-right: 10px;
+  background: url("@/assets/images/box5-icon.svg") no-repeat center center;
+  background-size: 24px 24px;
+}
+span.box6-icon {
+  line-height: 18px;
+  padding-left: 20px;
+  margin-right: 10px;
+  background: url("@/assets/images/box6-icon.svg") no-repeat center center;
+  background-size: 24px 24px;
+}
+
+span.type-per-icon {
+  background: url("@/assets/images/type1-icon.svg") no-repeat center center;
+  background-size: contain;
+}
+
+span.type-rel-icon {
+  background: url("@/assets/images/type2-icon.svg") no-repeat center center;
+  background-size: contain;
+}
+span.icon-bcp {
+  width: 14px;
+  height: 14px;
+  background: url("@/assets/images/rate3-icon.svg") no-repeat left center;
+  background-size: 100% 100%;
+  border-radius: 0 !important;
+  margin: 0px 8px 0 0;
+  vertical-align: middle;
+}
+
+span.money {
+  color: #ff9406;
 }

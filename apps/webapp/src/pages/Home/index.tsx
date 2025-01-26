@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "./index.module.scss";
 import DisHtml from "./components/disHtml";
-import DirectComp from "./components/directComp";
-import ReimComp from "./components/reim";
+import directHtml from "./components/directHtml";
+import reimHtml from "./components/reimHtml";
 import { keyCodeMapper } from "@/utils";
 
 const componentMap = {
-  1: DirectComp,
+  1: directHtml,
   2: DisHtml,
-  3: ReimComp,
+  3: reimHtml,
 };
 
 function HomePage(props: any) {
@@ -19,8 +19,10 @@ function HomePage(props: any) {
   });
   useEffect(() => {
     initKeydown(true);
+    initResize(true);
     return () => {
       initKeydown(false);
+      initResize(false);
     };
   }, []);
 
@@ -42,6 +44,11 @@ function HomePage(props: any) {
         }
       },
     );
+  };
+  const initResize = (flag) => {
+    window[flag ? "addEventListener" : "removeEventListener"]("resize", () => {
+      window.location.reload();
+    });
   };
   return (
     <div className={styles.pageBody}>

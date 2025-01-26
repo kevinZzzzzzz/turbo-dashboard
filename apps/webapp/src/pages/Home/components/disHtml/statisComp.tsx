@@ -38,57 +38,59 @@ function StatisComp(props: any) {
     });
   };
   return statisList.length ? (
-    <div className={styles.statisComp}>
-      {statisList?.map((d, i) => {
-        return (
-          // @ts-ignore
-          <marquee direction="up" scrolldelay="200" key={i}>
-            <div className={styles.statisComp_item}>
-              <p>
-                <span className={styles.iconAction}>截止当前{endTime}止</span>
-                {getDay}天内
-              </p>
+    // @ts-ignore
+    <marquee direction="up" scrolldelay="200">
+      <div className={styles.statisComp}>
+        {statisList?.map((d, i) => {
+          return (
+            <div key={i}>
+              <div className={styles.statisComp_item}>
+                <p>
+                  <span className={styles.iconAction}>截止当前{endTime}止</span>
+                  {getDay}天内
+                </p>
+              </div>
+              <div className={styles.statisComp_item}>
+                {d.amount1 > 0 ? (
+                  <p>
+                    <span>
+                      需求方调剂：{d.subType}
+                      {d.amount1}
+                      {d.unit}
+                    </span>
+                  </p>
+                ) : d.amount2 > 0 ? (
+                  <p>
+                    <span>
+                      供应方调剂：{d.subType}
+                      {d.amount2}
+                      {d.unit}
+                    </span>
+                  </p>
+                ) : d.amount3 > 0 ? (
+                  <p>
+                    <span>
+                      临床紧急调剂：{d.subType}
+                      {d.amount3}
+                      {d.unit}
+                    </span>
+                  </p>
+                ) : d.amount4 > 0 ? (
+                  <p>
+                    <span>
+                      科研调剂：{d.subType}
+                      {d.amount4}
+                      {d.unit}
+                    </span>
+                  </p>
+                ) : null}
+              </div>
             </div>
-            <div className={styles.statisComp_item}>
-              {d.amount1 > 0 ? (
-                <p>
-                  <span>
-                    需求方调剂：{d.subType}
-                    {d.amount1}
-                    {d.unit}
-                  </span>
-                </p>
-              ) : d.amount2 > 0 ? (
-                <p>
-                  <span>
-                    供应方调剂：{d.subType}
-                    {d.amount2}
-                    {d.unit}
-                  </span>
-                </p>
-              ) : d.amount3 > 0 ? (
-                <p>
-                  <span>
-                    临床紧急调剂：{d.subType}
-                    {d.amount3}
-                    {d.unit}
-                  </span>
-                </p>
-              ) : d.amount4 > 0 ? (
-                <p>
-                  <span>
-                    科研调剂：{d.subType}
-                    {d.amount4}
-                    {d.unit}
-                  </span>
-                </p>
-              ) : null}
-            </div>
-            {/*  @ts-ignore */}
-          </marquee>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+      {/*  @ts-ignore */}
+    </marquee>
   ) : null;
 }
 export default memo(StatisComp);

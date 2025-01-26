@@ -5,6 +5,7 @@ import MapComp from "./map";
 import RealTimeRecord from "./realTimeRecord";
 import StatisComp from "./statisComp";
 import UseFacility from "@/hooks/useFacility";
+import UseReload from "@/hooks/useReload";
 
 const bloodInventoryList = [
   {
@@ -57,7 +58,8 @@ function DisPage(props: any) {
   const [dispatchDataStore, setDispatchDataStore] = useState(dispatchData);
   const [pointDataStore, setPointDataStore] = useState(pointData);
   const [isMapMounted, setIsMapMounted] = useState(false);
-  const { facilityInfo } = UseFacility();
+  const { reloadNum } = UseReload();
+  const { facilityInfo, getFacilityName } = UseFacility();
 
   useEffect(() => {
     initBuildMap();
@@ -67,7 +69,7 @@ function DisPage(props: any) {
       setIsMapMounted(false);
       initKeydown(false);
     };
-  }, []);
+  }, [reloadNum]);
   /**
    * 处理切换血液类型
    * @param type 血液类型
@@ -286,7 +288,10 @@ function DisPage(props: any) {
         )}
       </div>
       <div className={styles.page_pageRight}>
-        <RealTimeRecord facilityInfo={facilityInfo} />
+        <RealTimeRecord
+          facilityInfo={facilityInfo}
+          getFacilityName={getFacilityName}
+        />
       </div>
     </div>
   );
