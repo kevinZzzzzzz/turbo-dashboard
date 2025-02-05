@@ -10,7 +10,7 @@ let fontsize_city = 15;
 let fontsize_value = 13;
 
 //品种单位字典
-var bloodtypesunit = {
+let bloodtypesunit = {
   rbc: "U",
   plt: "治疗量",
   plm: "mL",

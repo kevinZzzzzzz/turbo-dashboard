@@ -71,10 +71,10 @@ function DirectRealTimeDynamic(props: any) {
         n.label = "success";
         // 多地报销
         if (n.reimFacility.indexOf(",") > 0) {
-          var reimFacilitys = n.reimFacility.split(",");
-          var reimFacilitys_t = "";
-          var reimFacilityWithLocal = false;
-          for (var j = 0; j < reimFacilitys.length; j++) {
+          const reimFacilitys = n.reimFacility.split(",");
+          let reimFacilitys_t = "";
+          let reimFacilityWithLocal = false;
+          for (let j = 0; j < reimFacilitys.length; j++) {
             // 多地报销含本地
             if (reimFacilitys[j] === n.facility) {
               reimFacilityWithLocal = true;

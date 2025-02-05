@@ -13,10 +13,10 @@ function StatisComp(props: any) {
     window.$api.getStatisticsByBloodSubtype(getDay).then((res: any) => {
       let temp = [];
       if (res.length > 0) {
-        for (var i = 0; i < res.length; i++) {
+        for (let i = 0; i < res.length; i++) {
           if (temp.length > 0) {
-            var flag = false;
-            for (var j = 0; j < temp.length; j++) {
+            let flag = false;
+            for (let j = 0; j < temp.length; j++) {
               if (temp[j].subType === res[i].subType) {
                 temp[j].amount = temp[j].amount + res[i].amount;
                 temp[j].amount1 = temp[j].amount1 + res[i].amount1;

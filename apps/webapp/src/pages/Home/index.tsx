@@ -5,6 +5,7 @@ import directHtml from "./components/directHtml";
 import { keyCodeMapper } from "@/utils";
 function HomePage(props: any) {
   const [switcherNum, setSwitcherNum] = useState(1);
+  const [isMounted, setIsMounted] = useState(false);
   const BlockComp = memo((props: any) => {
     const componentMap = {
       1: directHtml,
@@ -14,6 +15,7 @@ function HomePage(props: any) {
     return Component ? <Component /> : null;
   });
   useEffect(() => {
+    setIsMounted(true);
     initKeydown(true);
     initResize(true);
     return () => {
@@ -42,12 +44,23 @@ function HomePage(props: any) {
   };
   const initResize = (flag) => {
     window[flag ? "addEventListener" : "removeEventListener"]("resize", () => {
-      window.location.reload();
+      // window.location.reload();
+      handleResize();
     });
+  };
+  /**
+   * 无刷新重绘
+   * @param ms 间隔时间
+   */
+  const handleResize = (ms = 500) => {
+    setIsMounted(false);
+    setTimeout(() => {
+      setIsMounted(true);
+    }, ms);
   };
   return (
     <div className={styles.pageBody}>
-      <BlockComp switcherNum={switcherNum} />
+      {isMounted ? <BlockComp switcherNum={switcherNum} /> : <></>}
     </div>
   );
 }

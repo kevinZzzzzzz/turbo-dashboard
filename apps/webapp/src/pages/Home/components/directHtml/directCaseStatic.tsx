@@ -18,8 +18,8 @@ function DirectCaseStatic(props: any) {
       let seriesData1 = [];
       let seriesData2 = [];
       let seriesData3 = [];
-      for (var i in reimbursementChartData) {
-        var totalNum = +(
+      for (let i in reimbursementChartData) {
+        const totalNum = +(
           reimbursementChartData[i][1] + reimbursementChartData[i][0]
         );
         xAxisData.push(i.replace("市", ""));
