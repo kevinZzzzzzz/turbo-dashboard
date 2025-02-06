@@ -28,7 +28,7 @@ function HomePage(props: any) {
     window[flag ? "addEventListener" : "removeEventListener"](
       "keydown",
       (event: any) => {
-        event.preventDefault();
+        !keyCodeMapper[event.keyCode] && event.preventDefault();
         switch (event.keyCode) {
           case keyCodeMapper.btnLeft:
             setSwitcherNum((pre) => (pre == 1 ? 2 : 1));

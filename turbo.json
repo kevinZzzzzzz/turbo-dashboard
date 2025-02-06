@@ -3,6 +3,9 @@
   "ui": "tui",
   "tasks": {
     "build": {
+      "dependsOn": [
+        "^build"
+      ],
       "outputs": [
         "dist/**"
       ],

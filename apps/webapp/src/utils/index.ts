@@ -67,6 +67,7 @@ export enum keyCodeMapper {
   btnCtrl = 17,
   btnR = 82,
   btnEsc = 27,
+  btnF11 = 122,
 }
 
 /**
