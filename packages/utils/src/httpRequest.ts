@@ -25,7 +25,7 @@ export class HttpRequest {
         config.baseURL = isMap
           ? "https://restapi.amap.com/v3"
           : location.origin || ""
-        config.timeout = 5000 // 请求超时
+        config.timeout = 10000 // 请求超时10s
         // config.baseURL = process.env.NODE_ENV === 'development' ? 'http://192.168.110.15:85/bigScreen' : 'http://192.168.110.15:85/bigScreen';
         return config
       },

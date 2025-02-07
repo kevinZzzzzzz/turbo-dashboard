@@ -150,9 +150,9 @@ function DirectBloodTrend(props: any) {
   const initCharts = () => {
     if (!chart) {
       chart = echarts.init(chartDom.current, "", { renderer: "svg" });
-      var xAxisArr = [];
-      var seriesData1 = [];
-      var seriesData2 = [];
+      let xAxisArr = [];
+      let seriesData1 = [];
+      let seriesData2 = [];
       directBloodTrendData.forEach((d, i) => {
         if (i == 0 || moment(d.date).format("DD") == "01") {
           xAxisArr.push(moment(d.date).format("MM") + "月");

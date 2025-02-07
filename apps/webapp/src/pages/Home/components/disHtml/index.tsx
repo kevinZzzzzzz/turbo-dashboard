@@ -173,7 +173,7 @@ function DisPage(props: any) {
           }
         }
       });
-      for (var i in dispatchData) {
+      for (let i in dispatchData) {
         let n = dispatchData[i];
         if (n.length > 0) {
           let temp = n;
