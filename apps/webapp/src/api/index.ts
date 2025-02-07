@@ -94,4 +94,10 @@ export default {
       false,
     );
   },
+  async getRecordsReim(data?: any): Promise<AxiosResponse<any, any>> {
+    return await http.get(
+      setProxy(`/service/dashboard/records/reim${formatGetParams(data)}`),
+      false,
+    );
+  },
 };
