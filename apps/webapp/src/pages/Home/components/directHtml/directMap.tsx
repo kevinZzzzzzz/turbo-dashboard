@@ -211,6 +211,7 @@ function DirectMap(props: any) {
         reHosData = mapData.current.mapHosMoney;
         reBstData = mapData.current.mapBstMoney;
         color = "#f69a20";
+        bstColor = "#f69a20";
         fontSizeFn = function (params) {
           let fontSize = 6;
           if (params[2] > 100000) {
@@ -228,6 +229,7 @@ function DirectMap(props: any) {
         reHosData = mapData.current.mapHosPeople;
         reBstData = mapData.current.mapBstPeople;
         color = "#1ac0fe";
+        bstColor = "#1ac0fe";
         fontSizeFn = function (params) {
           let fontSize = 6;
           if (params[2] > 1000) {
@@ -244,16 +246,18 @@ function DirectMap(props: any) {
       } else {
         reHosData = [];
         reBstData = mapData.current.mapBstOnline;
-        bstColor = function (item) {
-          if (
-            item.data[2].toString() == "200" ||
-            item.data[2].toString() == "204"
-          ) {
-            return "#10ac10";
-          } else {
-            return "#9eabbd";
-          }
-        };
+        color = "#10ac10";
+        bstColor = "#10ac10";
+        // function (item) {
+        //   if (
+        //     item.data[2].toString() == "200" ||
+        //     item.data[2].toString() == "204"
+        //   ) {
+        //     return "#10ac10";
+        //   } else {
+        //     return "#9eabbd";
+        //   }
+        // };
       }
       changeSeries.push({
         name: "医院直免地图节点",
@@ -271,27 +275,26 @@ function DirectMap(props: any) {
           color: color,
         },
       });
-      if (reBstData.length > 0) {
-        changeSeries.push({
-          name: "血站直免地图节点",
-          type: "scatter",
-          coordinateSystem: "geo",
-          data: reBstData,
-          symbol: path,
-          symbolSize: [25, 20],
-          roam: false, //鼠标缩放
-          z: 100,
-          itemStyle: {
-            color: bstColor,
-          },
-          label: {
-            show: true,
-            formatter: "{@[3]}",
-            offset: [0, 20],
-            fontSize: 11,
-          },
-        });
-      }
+      changeSeries.push({
+        name: "血站直免地图节点",
+        type: "scatter",
+        coordinateSystem: "geo",
+        data: reBstData,
+        symbol: path,
+        symbolSize: [25, 20],
+        roam: false, //鼠标缩放
+        z: 100,
+        itemStyle: {
+          color: bstColor,
+        },
+        label: {
+          show: true,
+          formatter: "{@[3]}",
+          offset: [0, 20],
+          color: color,
+          fontSize: 11,
+        },
+      });
       chart?.setOption({ series: changeSeries });
     }
   };

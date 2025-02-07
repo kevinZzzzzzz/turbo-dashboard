@@ -85,10 +85,7 @@ function directHtml(props: any) {
           { value: 0, name: "其他" },
         ];
         res.forEach((elem, i) => {
-          let reimType = "per";
-          if (elem.relation != "本人") {
-            reimType = "rel";
-          }
+          const reimType = elem.relation != "本人" ? "rel" : "per";
           relationTemp[reimType + "-people"] += elem.num;
           relationTemp[reimType + "-money"] += elem.amount;
           let relationChartDataIndex = relationChartDataSort.indexOf(

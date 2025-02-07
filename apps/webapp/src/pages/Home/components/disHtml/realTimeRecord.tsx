@@ -37,17 +37,17 @@ function RealTimeRecord(props: any) {
         }
         recordAllListT.push(d);
       });
-      setRecordAllList(recordAllListT);
       handleEventData(recordAllListT);
+      setRecordAllList(recordAllListT);
     });
   };
   const handleEventData = (list) => {
     list.forEach((n) => {
+      // 临床紧急用血
       if (n.dispatchType == 3) {
-        // 临床紧急用血
-        n.label = "danger"; //这里暂时定义为紧急
+        n.label = "danger"; // 这里暂时定义为紧急
       } else if (n.eventType == "调剂申请") {
-        n.label = "warning"; //这里暂时定义为警告
+        n.label = "warning"; // 这里暂时定义为警告
       } else {
         n.label = "success";
       }
@@ -119,6 +119,7 @@ function RealTimeRecord(props: any) {
           break;
         default:
           n.desc = "";
+          break;
       }
       n.cutTime = funcUtil.formatDate(
         new Date(n.time.replace(/-/g, "/")),
@@ -137,18 +138,6 @@ function RealTimeRecord(props: any) {
     //   return newItems;
     // });
   };
-
-  //通过机构标号获取名称
-  // function getFacilityName(facility) {
-  //   if (facilityInfo.current.hasOwnProperty(facility)) {
-  //     return facilityInfo.current[facility].name;
-  //   } else if (facilityInfo.current.hasOwnProperty(facility.substring(0, 5))) {
-  //     return facilityInfo.current[facility.substring(0, 5)].name;
-  //   } else {
-  //     return "";
-  //   }
-  // }
-
   return (
     <div className={styles.realTime}>
       <div className={styles.realTime_header}>

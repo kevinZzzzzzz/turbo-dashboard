@@ -38,7 +38,7 @@ function UseFacility() {
     }
   };
 
-  //通过机构标号获取名称
+  // 通过机构标号获取机构名称
   function getFacilityName(facility) {
     if (facilityInfo.current.hasOwnProperty(facility)) {
       return facilityInfo.current[facility].name;
@@ -49,7 +49,7 @@ function UseFacility() {
     }
   }
 
-  // 多条件通过机构码获取名称
+  // 多条件通过机构码获取机构名称
   const getFacilityValue = function (facility, type) {
     if (facilityInfo.current.hasOwnProperty(facility)) {
       return facilityInfo.current[facility][type];
@@ -59,7 +59,7 @@ function UseFacility() {
       return "";
     }
   };
-  //通过机构码获取与字典一致的机构码
+  // 通过机构码获取与字典一致的机构码
   const getRealFacilityCode = function (facility) {
     if (facility) {
       let code = facility;
