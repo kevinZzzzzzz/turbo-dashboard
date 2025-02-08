@@ -4,7 +4,6 @@ import styles from "./index.module.scss";
 import UseFacility from "@/hooks/useFacility";
 import moment from "moment";
 import { formatNum, getTheMoment } from "@/utils";
-import "@/assets/lib/marquee";
 import iconAction from "@/assets/images/icon_action.png";
 
 const NoticeReimbursement = () => {
@@ -30,12 +29,13 @@ const NoticeReimbursement = () => {
 
   useEffect(() => {
     initData();
-    setInterval(() => {
-      initData();
-    }, 10000);
+    // setInterval(() => {
+    //   initData();
+    // }, 10000);
   }, []);
 
   return (
+    // @ts-ignore
     <marquee direction="up" scrolldelay="200">
       <div className={styles.notice_reimbursement}>
         {data.localReimAmount || data.remoteReimAmount ? (
@@ -59,6 +59,7 @@ const NoticeReimbursement = () => {
           <></>
         )}
       </div>
+      {/* @ts-ignore */}
     </marquee>
   );
 };

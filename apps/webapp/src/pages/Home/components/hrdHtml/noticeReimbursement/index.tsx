@@ -2,19 +2,20 @@ import { useRef, useEffect } from "react";
 import * as echarts from "echarts";
 import styles from "./index.module.scss";
 import moment from "moment";
-import "@/assets/lib/marquee";
 import iconAction from "@/assets/images/icon_action.png";
 
 const NoticeReimbursement = ({ noticeData }) => {
   const [endTime, setEndTime] = useState("");
 
   useEffect(() => {
-    setInterval(() => {
-      setEndTime(moment(new Date()).format("HH:mm:ss"));
-    }, 10000);
+    setEndTime(moment(new Date()).format("HH:mm:ss"));
+    // setInterval(() => {
+    //   setEndTime(moment(new Date()).format("HH:mm:ss"));
+    // }, 10000);
   }, []);
 
   return (
+    // @ts-ignore
     <marquee direction="up" scrolldelay="200">
       <div className={styles.notice_reimbursement}>
         {noticeData.donors || noticeData.shield ? (
@@ -32,6 +33,7 @@ const NoticeReimbursement = ({ noticeData }) => {
           <></>
         )}
       </div>
+      {/*  @ts-ignore */}
     </marquee>
   );
 };

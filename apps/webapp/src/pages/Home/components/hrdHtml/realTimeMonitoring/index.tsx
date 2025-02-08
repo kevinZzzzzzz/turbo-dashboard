@@ -109,9 +109,9 @@ const RealTimeMonitoring = () => {
 
   useEffect(() => {
     initData();
-    setInterval(() => {
-      initData();
-    }, 10000);
+    // setInterval(() => {
+    //   initData();
+    // }, 10000);
   }, []);
 
   return (
@@ -123,7 +123,7 @@ const RealTimeMonitoring = () => {
       <div className={styles.record_list}>
         {recordList.length ? (
           recordList.map((d, i) => (
-            <div className={styles.news_item} key={d.key}>
+            <div className={styles.news_item} key={i}>
               <div className={styles.item_wrap}>
                 <div className={styles.log_title}>
                   <p>

@@ -5,6 +5,10 @@ import directHtml from "./components/directHtml";
 import reimHtml from "./components/reimHtml";
 import hrdHtml from "./components/hrdHtml";
 import { keyCodeMapper } from "@/utils";
+import "@/assets/lib/marquee";
+
+const refreshTime = 1000 * 60 * 10; // 10min定时轮询当前页面
+let refreshTimer = null;
 
 const componentMap = {
   1: directHtml,
@@ -14,8 +18,9 @@ const componentMap = {
 };
 
 function HomePage(props: any) {
-  const [switcherNum, setSwitcherNum] = useState(1);
+  const [switcherNum, setSwitcherNum] = useState(1); // 页码
   const [isMounted, setIsMounted] = useState(false);
+  // 根据页码切换对应组件
   const BlockComp = memo((props: any) => {
     const Component = componentMap[props.switcherNum];
     return Component ? <Component /> : null;
@@ -24,9 +29,13 @@ function HomePage(props: any) {
     setIsMounted(true);
     initKeydown(true);
     initResize(true);
+    refreshTimer = setInterval(() => {
+      handleResize();
+    }, refreshTime);
     return () => {
       initKeydown(false);
       initResize(false);
+      clearInterval(refreshTimer);
     };
   }, []);
 
@@ -38,10 +47,10 @@ function HomePage(props: any) {
         !keyCodeMapper[event.keyCode] && event.preventDefault();
         switch (event.keyCode) {
           case keyCodeMapper.btnLeft:
-            setSwitcherNum((num) => (num === 1 ? 1 : --num));
+            setSwitcherNum((num) => (num === 1 ? pageLength : --num));
             break;
           case keyCodeMapper.btnRight:
-            setSwitcherNum((num) => (num === pageLength ? pageLength : ++num));
+            setSwitcherNum((num) => (num === pageLength ? 1 : ++num));
             break;
           default:
             break;

@@ -1,7 +1,6 @@
 import { funcUtil } from "@/utils";
 import React, { useState, useEffect, memo } from "react";
 import styles from "./index.module.scss";
-import "@/assets/lib/marquee";
 const getDay = 14;
 const endTime = funcUtil.formatDate(new Date(), "hh:mm:ss");
 function StatisComp(props: any) {
