@@ -1,0 +1,108 @@
+.real_time_monitoring {
+  width: 100%;
+  height: 100%;
+  border-left: 1px solid #3f444b;
+  .header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .title {
+      color: #fff;
+      font-size: 30px;
+      font-weight: bold;
+    }
+    .record_number {
+      padding: 5px 10px;
+      margin-left: 15px;
+      min-width: 40px;
+      font-size: 24px;
+      color: #f5f5f5;
+      background: #50587c;
+      font-weight: 700;
+      border-radius: 10px;
+    }
+  }
+  .record_list {
+    max-height: calc(100vh - 50px);
+    overflow: hidden;
+    background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0),
+      #fff 70%
+    ); // 尾部透明度降低
+    background-clip: text; // 背景裁剪为文字形状
+    -webkit-background-clip: text; // 兼容性属性
+    color: transparent; // 文字透明
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    padding-bottom: 10px;
+    .news_item {
+      transform: translateX(0); /* 初始位置 */
+      transition: transform 1s ease; /* 透明度和位移的过渡效果 */
+      &:nth-child(1) {
+        animation: moveIn 2s;
+      }
+    }
+    .item_wrap {
+      width: 100%;
+      padding: 5px 16px 10px 8px;
+      margin: 0px;
+      border-bottom: 1px solid #26292d;
+      .log_title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #fff;
+        font-size: 22px;
+        .regular,
+        .success {
+          font-size: 20px;
+        }
+        .regular {
+          color: #0096ff;
+          padding-left: 10px;
+        }
+        .success {
+          color: #05ebc7;
+          padding-left: 10px;
+        }
+        .time {
+          color: #5e6e84;
+          margin-right: 3px;
+          font-size: 22px;
+        }
+        .danger {
+          color: #ff009c;
+          padding-left: 10px;
+        }
+        .warning {
+          color: #ffa500;
+          padding-left: 10px;
+        }
+      }
+      .log_desc {
+        color: #5e6e84;
+        margin-right: 3px;
+        font-size: 22px;
+      }
+    }
+    .no_data {
+      font-size: 22px;
+      color: #ffffff;
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+}
+@keyframes moveIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%); /* 初始位置：透明且向下偏移 */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%); /* 结束位置：完全可见且返回原位 */
+  }
+}

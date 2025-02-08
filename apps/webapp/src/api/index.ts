@@ -100,4 +100,40 @@ export default {
       false,
     );
   },
+  async getEventsReim(data?: any): Promise<AxiosResponse<any, any>> {
+    return await http.get(
+      setProxy(`/service/dashboard/events/reim${formatGetParams(data)}`),
+      false,
+    );
+  },
+  async getReimRemoteType(data?: any): Promise<AxiosResponse<any, any>> {
+    return await http.get(
+      setProxy(
+        `/service/dashboard/statistics/reim/remotetype${formatGetParams(data)}`,
+      ),
+      false,
+    );
+  },
+  async getDonationBystation(data?: any): Promise<AxiosResponse<any, any>> {
+    return await http.get(
+      setProxy(
+        `/service/dashboard/statistics/donation/bystation${formatGetParams(data)}`,
+      ),
+      false,
+    );
+  },
+  async getHrdBystation(data?: any): Promise<AxiosResponse<any, any>> {
+    return await http.get(
+      setProxy(
+        `/service/dashboard/statistics/hrd/bystation${formatGetParams(data)}`,
+      ),
+      false,
+    );
+  },
+  async getEventsHrd(data?: any): Promise<AxiosResponse<any, any>> {
+    return await http.get(
+      setProxy(`/service/dashboard/events/hrd${formatGetParams(data)}`),
+      false,
+    );
+  },
 };

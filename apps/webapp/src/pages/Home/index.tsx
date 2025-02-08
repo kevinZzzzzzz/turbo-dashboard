@@ -3,12 +3,14 @@ import styles from "./index.module.scss";
 import DisHtml from "./components/disHtml";
 import directHtml from "./components/directHtml";
 import reimHtml from "./components/reimHtml";
+import hrdHtml from "./components/hrdHtml";
 import { keyCodeMapper } from "@/utils";
 
 const componentMap = {
   1: directHtml,
   2: DisHtml,
   3: reimHtml,
+  4: hrdHtml,
 };
 
 function HomePage(props: any) {

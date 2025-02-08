@@ -69,9 +69,9 @@ function UseFacility() {
         code = facility.substring(0, 5);
       }
 
-      if (facilityInfo.hasOwnProperty(code)) {
+      if (facilityInfo.current.hasOwnProperty(code)) {
         return code;
-      } else if (facilityInfo.hasOwnProperty(code.substring(0, 5))) {
+      } else if (facilityInfo.current.hasOwnProperty(code.substring(0, 5))) {
         return code.substring(0, 5);
       }
     }

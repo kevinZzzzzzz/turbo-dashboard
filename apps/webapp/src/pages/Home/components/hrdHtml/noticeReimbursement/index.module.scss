@@ -1,0 +1,23 @@
+.notice_reimbursement {
+  height: 250px;
+  .top {
+    display: flex;
+    align-items: center;
+    color: #738293;
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 8px;
+    .icon_action {
+      margin-right: 8px;
+    }
+    .already_received {
+      color: #ffffff;
+      margin-left: 10px;
+    }
+  }
+  .data_item {
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+}

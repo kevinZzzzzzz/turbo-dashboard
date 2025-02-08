@@ -2,12 +2,11 @@ import { useRef, useEffect } from "react";
 import * as echarts from "echarts";
 import styles from "./index.module.scss";
 import UseFacility from "@/hooks/useFacility";
-import { getRealCityName } from "@/utils";
 import moment from "moment";
 import { formatNum, getTheMoment } from "@/utils";
 
 const Map = () => {
-  const { facilityInfo, getFacilityValue, getRealFacilityCode } = UseFacility();
+  const { facilityInfo, getRealFacilityCode } = UseFacility();
   const mapRef = useRef(null);
   const echartsData = useRef(null);
 
@@ -24,10 +23,9 @@ const Map = () => {
         },
       },
       roam: false, //鼠标缩放
-      top: 100,
-      bottom: 40,
-      left: 20,
-      right: 20,
+      left: 10,
+      top: "2%",
+      bottom: "4%",
       itemStyle: {
         areaColor: "rgba(50,60,72,0)",
         borderColor: "#39476a",
@@ -37,24 +35,6 @@ const Map = () => {
         },
       },
     },
-    /*legend: {
-            show:false,
-            orient: 'vertical',
-            selectedMode:false,
-            x:'right',
-            data:[]
-        },
-        dataRange: {
-            show : false,
-            x: 'right',
-            y: 'center',
-            textStyle: {color:'#fff'},
-            splitList: [
-                {start: 10000,label: '异地报销'},
-                {start: 0, end: 10000,label: '本地报销'}
-            ],
-            color: ['#06ebc8','#0096ff']
-        },*/
     calculable: true,
   };
 
@@ -134,7 +114,7 @@ const Map = () => {
             } else {
               //异地报销
               //判断异地报销为多地 or 单地
-              if (d.reimFacility.indexOf(",") > 0) {
+              if (d.reimFacility.indexOf(",") > -1) {
                 const reimFacilitys = d.reimFacility.split(",");
                 const amounts = d.facilityAmount.split(",");
 
@@ -199,30 +179,19 @@ const Map = () => {
                     else {
                       lineHash[d.applyFacility + "" + reimFacilitys[j]] =
                         lines.length; //记录index
-                      lines.push(
-                        {
-                          name: applyFacilityName,
-                          coords: [
-                            [
-                              facilityInfo[d.applyFacility].x,
-                              facilityInfo[d.applyFacility].y,
-                            ],
-                            [
-                              facilityInfo[reimFacilitys[j]].x,
-                              facilityInfo[reimFacilitys[j]].y,
-                            ],
+                      lines.push({
+                        coords: [
+                          [
+                            facilityInfo[d.applyFacility].x,
+                            facilityInfo[d.applyFacility].y,
                           ],
-                          value: amounts[j],
-                        },
-                        // {
-                        //   name: reimFacilityName,
-                        //   coords: [
-                        //     facilityInfo[reimFacilitys[j]].x,
-                        //     facilityInfo[reimFacilitys[j]].y,
-                        //   ],
-                        //   value: amounts[j],
-                        // },
-                      );
+                          [
+                            facilityInfo[reimFacilitys[j]].x,
+                            facilityInfo[reimFacilitys[j]].y,
+                          ],
+                        ],
+                        value: amounts[j],
+                      });
                     }
                   } else {
                     //异地含本地的是否计算在内？算本地还是算到异地？
@@ -272,7 +241,6 @@ const Map = () => {
                     ],
                   });
                 }
-                console.log(lineHash, lines, "lineHash");
                 //已经有这两个个机构的异地报销数据，累加
                 if (
                   Object.hasOwn(lineHash, d.applyFacility + "" + d.reimFacility)
@@ -285,30 +253,19 @@ const Map = () => {
                 else {
                   lineHash[d.applyFacility + "" + d.reimFacility] =
                     lines.length; //记录index
-                  lines.push(
-                    {
-                      name: applyFacilityName,
-                      coords: [
-                        [
-                          facilityInfo[d.applyFacility].x,
-                          facilityInfo[d.applyFacility].y,
-                        ],
-                        [
-                          facilityInfo[d.reimFacility].x,
-                          facilityInfo[d.reimFacility].y,
-                        ],
+                  lines.push({
+                    coords: [
+                      [
+                        facilityInfo[d.applyFacility].x,
+                        facilityInfo[d.applyFacility].y,
                       ],
-                      value: d.reimAmount,
-                    },
-                    // {
-                    //   name: reimFacilityName,
-                    //   coords: [
-                    //     facilityInfo[d.reimFacility].x,
-                    //     facilityInfo[d.reimFacility].y,
-                    //   ],
-                    //   value: d.reimAmount,
-                    // },
-                  );
+                      [
+                        facilityInfo[d.reimFacility].x,
+                        facilityInfo[d.reimFacility].y,
+                      ],
+                    ],
+                    value: d.reimAmount,
+                  });
                 }
               }
             }
@@ -425,46 +382,39 @@ const Map = () => {
                         shadowBlur: 15*/,
           },
         });
-        console.log(
-          remoteReimHash,
-          lines,
-          remoteReimDate,
-          localReimData,
-          "lines",
-        );
         //异地报销连线
-        // series.push({
-        //   name: "异地报销连线",
-        //   type: "lines",
-        //   data: lines,
-        //   zlevel: 2,
-        //   effect: {
-        //     show: true,
-        //     period: 5,
-        //     symbol: "arrow", //arrow circle arrowPath
-        //     symbolSize: screenWidthData.current.symbolsize_line,
-        //     color: "rgba(8,233,201,1)", //
-        //     trailLength: 0, // 0.1
-        //   },
-        //   lineStyle: {
-        //     color: "#06ebc8",
-        //     width: 1.5,
-        //     opacity: 0.5,
-        //     /*,curveness: 0.5*/
-        //   },
-        //   label: {
-        //     show: true,
-        //     textStyle: {
-        //       color: "#06ebc8",
-        //       //fontFamily: 'SimHei',
-        //       //fontWeight: 'bold',
-        //       fontSize: screenWidthData.current.fontsize_value,
-        //     },
-        //     formatter: "  ¥{c}  ",
-        //     position: "end",
-        //   },
-        //   animation: false,
-        // });
+        series.push({
+          name: "异地报销连线",
+          type: "lines",
+          data: lines,
+          zlevel: 2,
+          effect: {
+            show: true,
+            period: 5,
+            symbol: "arrow", //arrow circle arrowPath
+            symbolSize: screenWidthData.current.symbolsize_line,
+            color: "rgba(8,233,201,1)", //
+            trailLength: 0, // 0.1
+          },
+          lineStyle: {
+            color: "#06ebc8",
+            width: 1.5,
+            opacity: 0.5,
+            /*,curveness: 0.5*/
+          },
+          label: {
+            show: true,
+            textStyle: {
+              color: "#06ebc8",
+              //fontFamily: 'SimHei',
+              //fontWeight: 'bold',
+              fontSize: screenWidthData.current.fontsize_value,
+            },
+            formatter: "  ¥{c}  ",
+            position: "end",
+          },
+          animation: false,
+        });
         echartsData.current.setOption({ series: series });
       });
   };
@@ -472,7 +422,7 @@ const Map = () => {
   function initData() {
     const facilityInfoStr = window.sessionStorage.getItem("facilityInfo");
     if (!facilityInfoStr || !JSON.parse(facilityInfoStr)) {
-      getRecordsReim(facilityInfo);
+      getRecordsReim(facilityInfo.current);
     } else {
       const sessionStorageFacilityInfo = JSON.parse(facilityInfoStr);
       getRecordsReim(sessionStorageFacilityInfo);
