@@ -23,7 +23,7 @@ export const getRealCityName = (d) => {
     name.indexOf(cityName.substr(0, 2)) === -1 ||
     name.indexOf("分中心") > -1
   ) {
-    //let keywords = ["省", "自治区", "特别行政区", "市", "区", "县", "血液中心", "分中心", "中心血站", "血站", "分站", "中心血库", "血库"];
+    // let keywords = ["省", "自治区", "特别行政区", "市", "区", "县", "血液中心", "分中心", "中心血站", "血站", "分站", "中心血库", "血库"];
     let keywords = [
       "市",
       "区",

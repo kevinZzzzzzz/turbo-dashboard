@@ -10,26 +10,24 @@ function StatisComp(props: any) {
     getStatisData();
   }, []);
   const getStatisData = () => {
+    // 统计并归类
     window.$api.getStatisticsByBloodSubtype(getDay).then((res: any) => {
       let temp = [];
       if (res.length > 0) {
-        for (let i = 0; i < res.length; i++) {
-          if (temp.length > 0) {
-            let flag = false;
-            for (let j = 0; j < temp.length; j++) {
-              if (temp[j].subType === res[i].subType) {
-                temp[j].amount = temp[j].amount + res[i].amount;
-                temp[j].amount1 = temp[j].amount1 + res[i].amount1;
-                temp[j].amount2 = temp[j].amount2 + res[i].amount2;
-                temp[j].amount3 = temp[j].amount3 + res[i].amount3;
-                temp[j].amount4 = temp[j].amount4 + res[i].amount4;
-                flag = true;
-              }
+        temp = [res[0]];
+        for (let i = 1; i < res.length; i++) {
+          let flag = false;
+          for (let j = 0; j < temp.length; j++) {
+            if (temp[j].subType === res[i].subType) {
+              temp[j].amount = temp[j].amount + res[i].amount;
+              temp[j].amount1 = temp[j].amount1 + res[i].amount1;
+              temp[j].amount2 = temp[j].amount2 + res[i].amount2;
+              temp[j].amount3 = temp[j].amount3 + res[i].amount3;
+              temp[j].amount4 = temp[j].amount4 + res[i].amount4;
+              flag = true;
             }
-            if (!flag) {
-              temp.push(res[i]);
-            }
-          } else {
+          }
+          if (!flag) {
             temp.push(res[i]);
           }
         }

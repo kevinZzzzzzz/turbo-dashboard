@@ -171,7 +171,7 @@ function MapComp(props: any) {
       lineStyle: {
         color: "rgba(6,235,200,1)",
         // type: "dotted",
-        width: 2,
+        width: 3,
         opacity: 0.6,
         curveness: 0.5,
       },

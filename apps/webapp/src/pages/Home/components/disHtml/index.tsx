@@ -63,7 +63,6 @@ function DisPage(props: any) {
 
   useEffect(() => {
     initBuildMap();
-    initStatistics();
     initKeydown(true);
     return () => {
       setIsMapMounted(false);
@@ -100,28 +99,28 @@ function DisPage(props: any) {
     const getRecords = window.$api.getRecords(45);
     Promise.all([getTypeSumByCity, getRecords]).then((res: any) => {
       const [stores, dispatches] = res;
-
-      let facilityStore_hash = { rbc: {}, plt: {}, plm: {}, crp: {} }; // 映射库存需要
+      let facilityStore_hash = { rbc: {}, plt: {}, plm: {}, crp: {} }; // 各机构库存情况
       let points_hash = { rbc: {}, plt: {}, plm: {}, crp: {} }; // 排重需要的HASH MAP
       let dispatch_map = { rbc: {}, plt: {}, plm: {}, crp: {} }; // 同个调拨路径的 MAP
       stores?.forEach((d) => {
         if (d.type) {
+          // 各机构总库存情况
           facilityStore_hash[d.type][d.facility] = d["amount"];
         }
       });
+      // 处理调剂关系线路列表
       dispatches?.forEach((m) => {
         let bloodType = bloodInventoryEnum[m.bloodType] || "";
         if (bloodType) {
           let t = [];
-          let stationFrom = m.stationFrom;
-          stationFrom = stationFrom.substring(0, 5);
-          let stationTo = m.stationTo;
-          stationTo = stationTo.substring(0, 5);
+          const stationFrom = m.stationFrom?.substring(0, 5);
+          const stationTo = m.stationTo?.substring(0, 5);
           // 已经有相同路径的调剂数据
           if (
             dispatch_map[bloodType].hasOwnProperty(stationFrom + "" + stationTo)
           ) {
-            let _index = dispatch_map[bloodType][stationFrom + "" + stationTo];
+            const _index =
+              dispatch_map[bloodType][stationFrom + "" + stationTo];
             dispatchData[bloodType][_index][0].value += m.amount;
             dispatchData[bloodType][_index][1].value += m.amount;
           } else {
@@ -179,23 +178,21 @@ function DisPage(props: any) {
           let temp = n;
           dispatchData[i] = [];
           temp.forEach((d) => {
-            let m = {
+            dispatchData[i].push({
               coords: [d[0].coord, d[1].coord],
               name: d[0].name,
               value: d[0].value,
-            };
-            dispatchData[i].push(m);
+            });
           });
         }
       }
       // 库存数据
-      stores.forEach((o) => {
+      stores?.forEach((o) => {
         if (
           !points_hash[o.type].hasOwnProperty(o.facility) &&
           facilityInfo.current.hasOwnProperty(o.facility)
         ) {
           // 排除与调剂节点重复的点
-
           bloodStoreData[o.type].push({
             name: facilityInfo.current[o.facility].cityName,
             value: [
@@ -207,8 +204,11 @@ function DisPage(props: any) {
         }
       });
       setIsMapMounted(true);
+      // 库存网点
       setBloodStore(bloodStoreData);
+      // 调拨血袋数量
       setDispatchDataStore(dispatchData);
+      // 调拨起始点
       setPointDataStore(pointData);
     });
   };
@@ -217,7 +217,7 @@ function DisPage(props: any) {
     window[flag ? "addEventListener" : "removeEventListener"](
       "keydown",
       (event: any) => {
-        event.preventDefault();
+        !keyCodeMapper[event.keyCode] && event.preventDefault();
         switch (event.keyCode) {
           case keyCodeMapper.btnUp:
             pointIdx = !pointIdx ? 3 : pointIdx - 1;
@@ -233,7 +233,6 @@ function DisPage(props: any) {
       },
     );
   };
-  const initStatistics = () => {};
   return (
     <div className={styles.page}>
       <div className={styles.page_pageLeft}>
