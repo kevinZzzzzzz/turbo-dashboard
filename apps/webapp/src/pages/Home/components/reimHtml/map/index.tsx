@@ -4,8 +4,10 @@ import styles from "./index.module.scss";
 import UseFacility from "@/hooks/useFacility";
 import moment from "moment";
 import { formatNum, getTheMoment } from "@/utils";
+import { areaMap } from "@/constant/area";
 
 const Map = () => {
+  const area = sessionStorage.getItem("area");
   const { facilityInfo, getRealFacilityCode } = UseFacility();
   const mapRef = useRef(null);
   const echartsData = useRef(null);
@@ -16,7 +18,7 @@ const Map = () => {
     },
     backgroundColor: "rgba(27,27,27,0)",
     geo: {
-      map: "江苏",
+      map: areaMap[area]["name"],
       label: {
         emphasis: {
           show: false,

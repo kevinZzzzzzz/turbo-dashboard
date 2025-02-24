@@ -4,6 +4,7 @@ import styles from "./index.module.scss";
 import UseFacility from "@/hooks/useFacility";
 import moment from "moment";
 import { formatNum, getTheMoment } from "@/utils";
+import { areaMap } from "@/constant/area";
 
 const peoplePath =
   "path://M340.995,302.885c7.896,0,14.295-6.228,14.295-13.912c0-7.681-6.398-13.906-14.295-13.906   c-7.893,0-14.291,6.225-14.291,13.906C326.704,296.657,333.103,302.885,340.995,302.885z M355.068,305.751h-28.149   c-10.629,0-19.255,8.36-19.312,18.689c0,0.019-0.003,0.038-0.003,0.054v36.797c0,3.311,2.761,6,6.164,6   c3.406,0,6.168-2.689,6.168-6v-34.089h2.944v97.121c0,4.449,3.707,8.051,8.275,8.051c4.572,0,8.275-3.602,8.275-8.051v-57.088   h3.131v57.088c0,4.449,3.703,8.051,8.272,8.051c4.575,0,8.278-3.602,8.278-8.051v-97.121h2.944v34.089c0,3.311,2.755,6,6.168,6   c3.399,0,6.161-2.689,6.161-6V324.44C374.33,314.111,365.704,305.751,355.068,305.751z";
@@ -26,6 +27,7 @@ function converColor(value) {
 }
 
 const Map = ({ changeNoticeData }) => {
+  const area = sessionStorage.getItem("area");
   const { facilityInfo, getRealFacilityCode } = UseFacility();
   const mapRef = useRef(null);
   const echartsData = useRef(null);
@@ -36,7 +38,7 @@ const Map = ({ changeNoticeData }) => {
     },
     backgroundColor: "rgba(27,27,27,0)",
     geo: {
-      map: "江苏",
+      map: areaMap[area]["name"],
       label: {
         emphasis: {
           show: false,
@@ -131,14 +133,16 @@ const Map = ({ changeNoticeData }) => {
           const cityName = Object.hasOwn(facilityInfo, d.station)
             ? facilityInfo[d.station].cityName
             : d.station;
-          donations.push({
-            name: cityName,
-            value: [
-              facilityInfo[d.station].x,
-              facilityInfo[d.station].y,
-              d.people,
-            ],
-          });
+          if (facilityInfo.hasOwnProperty(d.station)) {
+            donations.push({
+              name: cityName,
+              value: [
+                facilityInfo[d.station].x,
+                facilityInfo[d.station].y,
+                d.people,
+              ],
+            });
+          }
           //计算献血数量
           if (!data.donors) data.donors = 0;
           data.donors += d.people;
@@ -151,7 +155,11 @@ const Map = ({ changeNoticeData }) => {
             ? facilityInfo[d.station].cityName
             : d.station;
 
-          if (d.station !== null && d.station !== "") {
+          if (
+            d.station !== null &&
+            d.station !== "" &&
+            facilityInfo.hasOwnProperty(d.station)
+          ) {
             banlistPointData.push({
               name: cityName,
               value: [

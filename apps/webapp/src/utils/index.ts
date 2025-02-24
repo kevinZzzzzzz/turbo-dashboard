@@ -104,7 +104,7 @@ export const formatNum = function (num: number | string) {
 */
 export function getUrlParamsByKey(param: string, url = window.location.href) {
   const reg = new RegExp("(^|&)" + param + "=([^&]*)(&|$)", "i");
-  const r = url.split("?")[1].match(reg);
+  const r = url.split("?")[1]?.match(reg);
   if (r != null) return unescape(r[2]);
   return null;
 }

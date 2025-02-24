@@ -82,7 +82,7 @@
       }
       &_statis {
         margin-top: 30px;
-        max-height: 260px;
+        max-height: 200px;
         overflow: hidden;
         // position: absolute;
         // bottom: 10%;
@@ -217,6 +217,9 @@
       font-size: 20px;
     }
   }
+}
+.statisComp::-webkit-scrollbar {
+  display: none;
 }
 
 .iconAction {

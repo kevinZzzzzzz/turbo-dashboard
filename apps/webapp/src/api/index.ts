@@ -6,41 +6,42 @@ const http = new HttpRequest();
 const setProxy = (url: string): string => {
   return !import.meta.env.PROD ? "/api" + url : url;
 };
+const area = sessionStorage.getItem("area");
 console.log(import.meta.env, "环境变量");
-const fakeMode = !!getUrlParamsByKey("demo");
-console.log(fakeMode, "fakeMode11111111");
+const useFakeMode = !!getUrlParamsByKey("demo") && area === "fj";
+
 export default {
   async getServerTime(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      !fakeMode
+      !useFakeMode
         ? setProxy(`/service/dashboard/servertime${formatGetParams(data)}`)
-        : "./json/servertime.json?v=1",
+        : `./json/${area}/servertime.json?v=1`,
       false,
     );
   },
   async getFacility(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      !fakeMode
+      !useFakeMode
         ? setProxy(`/service/dashboard/dicts/facility${formatGetParams(data)}`)
-        : "./json/facility.json?v=1",
+        : `./json/${area}/facility.json?v=1`,
       false,
     );
   },
   async getTypeSumByCity(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      !fakeMode
+      !useFakeMode
         ? setProxy(
             `/service/dashboard/statistics/bloodstore/typesumbycity${formatGetParams(data)}`,
           )
-        : "./json/typesumbycity.json?v=1",
+        : `./json/${area}/typesumbycity.json?v=1`,
       false,
     );
   },
   async getRecords(data: number): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      !fakeMode
+      !useFakeMode
         ? setProxy(`/service/dashboard/records/dispatch?${funcUtil.prox(data)}`)
-        : "./json/recordDispatch.json?v=1",
+        : `./json/${area}/recordDispatch.json?v=1`,
       false,
     );
   },
@@ -54,9 +55,9 @@ export default {
   },
   async getEventsList(data: number): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      !fakeMode
+      !useFakeMode
         ? setProxy(`/service/dashboard/events/dispatch?${funcUtil.prox(data)}`)
-        : "./json/eventsDispatch.json?v=1",
+        : `./json/${area}/eventsDispatch.json?v=1`,
       false,
     );
   },
@@ -64,11 +65,11 @@ export default {
     data: number,
   ): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      !fakeMode
+      !useFakeMode
         ? setProxy(
             `/service/dashboard/statistics/dispatch/bybloodsubtype?${funcUtil.prox(data)}`,
           )
-        : "./json/bybloodsubtype.json?v=1",
+        : `./json/${area}/bybloodsubtype.json?v=1`,
       false,
     );
   },
@@ -109,43 +110,55 @@ export default {
   },
   async getRecordsReim(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      setProxy(`/service/dashboard/records/reim${formatGetParams(data)}`),
+      !useFakeMode
+        ? setProxy(`/service/dashboard/records/reim${formatGetParams(data)}`)
+        : `./json/${area}/reimRecords.json?v=1`,
       false,
     );
   },
   async getEventsReim(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      setProxy(`/service/dashboard/events/reim${formatGetParams(data)}`),
+      !useFakeMode
+        ? setProxy(`/service/dashboard/events/reim${formatGetParams(data)}`)
+        : `./json/${area}/eventsReim.json?v=1`,
       false,
     );
   },
   async getReimRemoteType(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      setProxy(
-        `/service/dashboard/statistics/reim/remotetype${formatGetParams(data)}`,
-      ),
+      !useFakeMode
+        ? setProxy(
+            `/service/dashboard/statistics/reim/remotetype${formatGetParams(data)}`,
+          )
+        : `./json/${area}/reimRemotetype.json?v=1`,
       false,
     );
   },
   async getDonationBystation(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      setProxy(
-        `/service/dashboard/statistics/donation/bystation${formatGetParams(data)}`,
-      ),
+      !useFakeMode
+        ? setProxy(
+            `/service/dashboard/statistics/donation/bystation${formatGetParams(data)}`,
+          )
+        : `./json/${area}/donationBystation.json?v=1`,
       false,
     );
   },
   async getHrdBystation(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      setProxy(
-        `/service/dashboard/statistics/hrd/bystation${formatGetParams(data)}`,
-      ),
+      !useFakeMode
+        ? setProxy(
+            `/service/dashboard/statistics/hrd/bystation${formatGetParams(data)}`,
+          )
+        : `./json/${area}/hrdBystation.json?v=1`,
       false,
     );
   },
   async getEventsHrd(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      setProxy(`/service/dashboard/events/hrd${formatGetParams(data)}`),
+      !useFakeMode
+        ? setProxy(`/service/dashboard/events/hrd${formatGetParams(data)}`)
+        : `./json/${area}/eventsHrd.json?v=1`,
       false,
     );
   },

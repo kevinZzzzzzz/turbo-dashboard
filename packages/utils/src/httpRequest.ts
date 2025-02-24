@@ -25,7 +25,7 @@ export class HttpRequest {
         config.baseURL = isMap
           ? "https://restapi.amap.com/v3"
           : location.origin || ""
-        config.timeout = 10000 // 请求超时10s
+        // config.timeout = 10000 // 请求超时10s
         // config.baseURL = '';
         return config
       },

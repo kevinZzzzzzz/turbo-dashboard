@@ -30,7 +30,11 @@ function App() {
   useEffect(() => {
     // 获取链接上参数 并存储再sessionStorage, 默认江苏 -> js
     const area = getUrlParamsByKey("area");
-    sessionStorage.setItem("area", area ? area : "js");
+    const areaT = sessionStorage.getItem("area");
+    if (area !== areaT) {
+      sessionStorage.removeItem("facilityInfo");
+      sessionStorage.setItem("area", area ? area : "js");
+    }
 
     /**
      * 获取服务器时间

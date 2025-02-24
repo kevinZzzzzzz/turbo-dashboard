@@ -29,9 +29,11 @@ const RealTimeMonitoring = () => {
 
         resp.forEach((d, i) => {
           d.facility = getRealFacilityCode(d.facility);
-          d.cityName = facilityInfo.current[d.facility].cityName;
-          d.name = facilityInfo.current[d.facility].name;
-          logs.push(d);
+          if (facilityInfo.current.hasOwnProperty(d.facility)) {
+            d.cityName = facilityInfo.current[d.facility]?.cityName;
+            d.name = facilityInfo.current[d.facility]?.name;
+            logs.push(d);
+          }
         });
 
         const dispatchEvents = [];
