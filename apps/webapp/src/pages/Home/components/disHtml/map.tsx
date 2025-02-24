@@ -1,7 +1,8 @@
 import React, { useState, useEffect, memo } from "react";
 import styles from "./index.module.scss";
 import * as echarts from "echarts";
-import geoCoordMap from "../../mapData/江苏省.json";
+import { areaMap } from "@/constant/area";
+// import geoCoordMap from "../../mapData/江苏省.json";
 
 let symbolsize_store = 8;
 let symbolsize_city = 8;
@@ -18,6 +19,7 @@ let bloodtypesunit = {
 };
 
 function MapComp(props: any) {
+  const area = sessionStorage.getItem("area");
   const { bloodType, bloodStoreData, dispatchData, pointData, bloodInventMap } =
     props;
   let chart: any = null;
@@ -43,11 +45,14 @@ function MapComp(props: any) {
     }
   }
   // 初始化图表
-  const initChart = (option: any) => {
+  const initChart = async (option: any) => {
     if (!mounted.current || !chart) {
       chart = echarts.init(chartDom.current);
+      const geoCoordMap = await import(
+        `../../mapData/${areaMap[area]["allName"]}.json`
+      );
       // @ts-ignore
-      echarts?.registerMap("江苏", geoCoordMap);
+      echarts?.registerMap(areaMap[area]["name"], geoCoordMap);
       chart?.setOption(option);
       mounted.current = true;
 
@@ -67,7 +72,7 @@ function MapComp(props: any) {
       },
       backgroundColor: "rgba(27,27,27,0)",
       geo: {
-        map: "江苏",
+        map: areaMap[area]["name"],
         label: {
           emphasis: {
             show: false,

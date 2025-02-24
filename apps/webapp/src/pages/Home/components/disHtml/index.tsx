@@ -49,6 +49,7 @@ type bloodType = "rbc" | "plt" | "plm" | "crp";
 //默认统计数据
 // let default_bloodgroup = "amount"; //ABO总计;
 function DisPage(props: any) {
+  const area = sessionStorage.getItem("area");
   //血液库存与调剂数据对象
   let bloodStoreData = { rbc: [], plt: [], plm: [], crp: [] };
   let dispatchData = { rbc: [], plt: [], plm: [], crp: [] };
@@ -95,7 +96,10 @@ function DisPage(props: any) {
 
   // 初始化地图数据展示
   const initBuildMap = () => {
-    const getTypeSumByCity = window.$api.getTypeSumByCity({ type: "all" });
+    const getTypeSumByCity = window.$api.getTypeSumByCity({
+      type: "all",
+      province: area,
+    });
     const getRecords = window.$api.getRecords(45);
     Promise.all([getTypeSumByCity, getRecords]).then((res: any) => {
       const [stores, dispatches] = res;
@@ -121,8 +125,13 @@ function DisPage(props: any) {
           ) {
             const _index =
               dispatch_map[bloodType][stationFrom + "" + stationTo];
-            dispatchData[bloodType][_index][0].value += m.amount;
-            dispatchData[bloodType][_index][1].value += m.amount;
+            if (
+              dispatchData[bloodType][_index] &&
+              dispatchData[bloodType][_index].length
+            ) {
+              dispatchData[bloodType][_index][0].value += m.amount;
+              dispatchData[bloodType][_index][1].value += m.amount;
+            }
           } else {
             if (facilityInfo.current.hasOwnProperty(stationFrom)) {
               t.push({
@@ -178,11 +187,13 @@ function DisPage(props: any) {
           let temp = n;
           dispatchData[i] = [];
           temp.forEach((d) => {
-            dispatchData[i].push({
-              coords: [d[0].coord, d[1].coord],
-              name: d[0].name,
-              value: d[0].value,
-            });
+            if (d[0] && d[1]) {
+              dispatchData[i].push({
+                coords: [d[0]?.coord, d[1]?.coord],
+                name: d[0]?.name,
+                value: d[0]?.value,
+              });
+            }
           });
         }
       }

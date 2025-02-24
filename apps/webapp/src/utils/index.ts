@@ -97,3 +97,14 @@ export const formatNum = function (num: number | string) {
   }
   return result;
 };
+/* 
+  获取链接上的参数值
+  name: 参数名称
+  str: 链接地址
+*/
+export function getUrlParamsByKey(param: string, url = window.location.href) {
+  const reg = new RegExp("(^|&)" + param + "=([^&]*)(&|$)", "i");
+  const r = url.split("?")[1].match(reg);
+  if (r != null) return unescape(r[2]);
+  return null;
+}

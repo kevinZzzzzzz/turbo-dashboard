@@ -28,14 +28,15 @@ function RealTimeRecord(props: any) {
         if (facilityInfo.current.hasOwnProperty(d.facility)) {
           d.cityName = facilityInfo.current[d.facility].cityName;
           d.name = facilityInfo.current[d.facility].name;
+          recordAllListT.push(d);
         } else if (
           facilityInfo.current.hasOwnProperty(d.facility.substring(0, 5))
         ) {
           d.cityName =
             facilityInfo.current[d.facility.substring(0, 5)].cityName;
           d.name = facilityInfo.current[d.facility.substring(0, 5)].name;
+          recordAllListT.push(d);
         }
-        recordAllListT.push(d);
       });
       handleEventData(recordAllListT);
       setRecordAllList(recordAllListT);

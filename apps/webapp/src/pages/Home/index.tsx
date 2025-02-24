@@ -11,18 +11,26 @@ const refreshTime = 1000 * 60 * 10; // 10min定时轮询当前页面
 let refreshTimer = null;
 
 const componentMap = {
-  1: directHtml,
-  2: DisHtml,
-  3: reimHtml,
-  4: hrdHtml,
+  js: {
+    1: directHtml,
+    2: DisHtml,
+    3: reimHtml,
+    4: hrdHtml,
+  },
+  fj: {
+    1: DisHtml,
+    2: reimHtml,
+    3: hrdHtml,
+  },
 };
 
 function HomePage(props: any) {
+  const area = sessionStorage.getItem("area");
   const [switcherNum, setSwitcherNum] = useState(1); // 页码
   const [isMounted, setIsMounted] = useState(false);
   // 根据页码切换对应组件
   const BlockComp = memo((props: any) => {
-    const Component = componentMap[props.switcherNum];
+    const Component = componentMap[area][props.switcherNum];
     return Component ? <Component /> : null;
   });
   useEffect(() => {
@@ -40,7 +48,7 @@ function HomePage(props: any) {
   }, []);
 
   const initKeydown = (flag) => {
-    const pageLength = Object.keys(componentMap).length;
+    const pageLength = Object.keys(componentMap[area]).length;
     window[flag ? "addEventListener" : "removeEventListener"](
       "keydown",
       (event: any) => {

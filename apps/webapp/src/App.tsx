@@ -10,6 +10,7 @@ import ReactDOM from "react-dom";
 import { AllRouters as routes } from "./router/index";
 import DefaultLayout from "./layout/Default";
 import api from "@/api";
+import { getUrlParamsByKey } from "./utils";
 
 declare global {
   interface Window {
@@ -27,6 +28,10 @@ window.serverTimeDiff = 0;
 function App() {
   const [canMounted, setCanMounted] = useState(false);
   useEffect(() => {
+    // 获取链接上参数 并存储再sessionStorage, 默认江苏 -> js
+    const area = getUrlParamsByKey("area");
+    sessionStorage.setItem("area", area ? area : "js");
+
     /**
      * 获取服务器时间
      * 解决机顶盒时间/时区不正确

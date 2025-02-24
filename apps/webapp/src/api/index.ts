@@ -1,4 +1,4 @@
-import { funcUtil } from "@/utils";
+import { funcUtil, getUrlParamsByKey } from "@/utils";
 import { HttpRequest, AxiosResponse } from "@dashboard/utils";
 import { formatGetParams } from "hoslink-xxx";
 const http = new HttpRequest();
@@ -7,31 +7,40 @@ const setProxy = (url: string): string => {
   return !import.meta.env.PROD ? "/api" + url : url;
 };
 console.log(import.meta.env, "环境变量");
-
+const fakeMode = !!getUrlParamsByKey("demo");
+console.log(fakeMode, "fakeMode11111111");
 export default {
   async getServerTime(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      setProxy(`/service/dashboard/servertime${formatGetParams(data)}`),
+      !fakeMode
+        ? setProxy(`/service/dashboard/servertime${formatGetParams(data)}`)
+        : "./json/servertime.json?v=1",
       false,
     );
   },
   async getFacility(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      setProxy(`/service/dashboard/dicts/facility${formatGetParams(data)}`),
+      !fakeMode
+        ? setProxy(`/service/dashboard/dicts/facility${formatGetParams(data)}`)
+        : "./json/facility.json?v=1",
       false,
     );
   },
   async getTypeSumByCity(data?: any): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      setProxy(
-        `/service/dashboard/statistics/bloodstore/typesumbycity${formatGetParams(data)}`,
-      ),
+      !fakeMode
+        ? setProxy(
+            `/service/dashboard/statistics/bloodstore/typesumbycity${formatGetParams(data)}`,
+          )
+        : "./json/typesumbycity.json?v=1",
       false,
     );
   },
   async getRecords(data: number): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      setProxy(`/service/dashboard/records/dispatch?${funcUtil.prox(data)}`),
+      !fakeMode
+        ? setProxy(`/service/dashboard/records/dispatch?${funcUtil.prox(data)}`)
+        : "./json/recordDispatch.json?v=1",
       false,
     );
   },
@@ -45,7 +54,9 @@ export default {
   },
   async getEventsList(data: number): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      setProxy(`/service/dashboard/events/dispatch?${funcUtil.prox(data)}`),
+      !fakeMode
+        ? setProxy(`/service/dashboard/events/dispatch?${funcUtil.prox(data)}`)
+        : "./json/eventsDispatch.json?v=1",
       false,
     );
   },
@@ -53,9 +64,11 @@ export default {
     data: number,
   ): Promise<AxiosResponse<any, any>> {
     return await http.get(
-      setProxy(
-        `/service/dashboard/statistics/dispatch/bybloodsubtype?${funcUtil.prox(data)}`,
-      ),
+      !fakeMode
+        ? setProxy(
+            `/service/dashboard/statistics/dispatch/bybloodsubtype?${funcUtil.prox(data)}`,
+          )
+        : "./json/bybloodsubtype.json?v=1",
       false,
     );
   },
