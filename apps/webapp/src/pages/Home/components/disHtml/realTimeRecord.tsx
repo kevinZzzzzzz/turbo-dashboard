@@ -145,18 +145,20 @@ function RealTimeRecord(props: any) {
         <b className={styles.realTime_header_title}>实时监控记录</b>
         <p className={styles.realTime_header_num}>{recordAllList.length}</p>
       </div>
-      <div className={styles.realTime_main} ref={recordRef}>
-        {recordAllList.length ? (
-          recordAllList?.map((d, i) => {
-            return (
-              <div className={styles.realTime_main_item} key={i}>
-                <EventItem info={d} />
-              </div>
-            );
-          })
-        ) : (
-          <p className={styles["realTime_main-empty"]}>暂无数据</p>
-        )}
+      <div className={styles.realTime_wrap}>
+        <div className={styles.realTime_main} ref={recordRef}>
+          {recordAllList.length ? (
+            recordAllList?.map((d, i) => {
+              return (
+                <div className={styles.realTime_main_item} key={i}>
+                  <EventItem info={d} />
+                </div>
+              );
+            })
+          ) : (
+            <p className={styles["realTime_main-empty"]}>暂无数据</p>
+          )}
+        </div>
       </div>
     </div>
   );

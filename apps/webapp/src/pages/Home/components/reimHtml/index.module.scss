@@ -16,7 +16,7 @@
 }
 
 .left {
-  width: 67%;
+  width: 65%;
   height: 100%;
   position: relative;
   .charts_wrap {
@@ -36,8 +36,6 @@
   }
   .caption {
     position: absolute;
-    left: 2rem;
-    bottom: 3rem;
     background: transparent;
     overflow: hidden;
     .lengend {
@@ -45,15 +43,17 @@
     }
     .scroll_outWrap {
       margin-top: 30px;
-      border: 1px solid #26292d;
-      padding: 10px 20px;
+      padding: 30px;
+      background: url("@/assets/images/notificationBg.png") no-repeat;
+      background-size: 100% 100%;
     }
   }
 }
 
 .right {
-  width: 33%;
+  width: 35%;
   height: 100%;
+  padding-right: 50px;
 }
 
 /*   old   */

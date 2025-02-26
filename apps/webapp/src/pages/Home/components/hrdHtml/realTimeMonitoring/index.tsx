@@ -122,35 +122,37 @@ const RealTimeMonitoring = () => {
         <div className={styles.title}>实时监控记录</div>
         <span className={styles.record_number}>{recordList.length}</span>
       </div>
-      <div className={styles.record_list}>
-        {recordList.length ? (
-          recordList.map((d, i) => (
-            <div className={styles.news_item} key={i}>
-              <div className={styles.item_wrap}>
-                <div className={styles.log_title}>
-                  <p>
-                    <span>
-                      {d.cityName}
-                      {d.eventType}
-                    </span>
-                    <span className={styles[d.label]}>
-                      {d.label === "warning" ? "警告" : ""}
-                      {d.label !== "success" &&
-                      d.label !== "regular" &&
-                      d.label !== "warning"
-                        ? "异常"
-                        : ""}
-                    </span>
-                  </p>
-                  <span className={styles.time}>{d.cutTime}</span>
+      <div className={styles.record_list_wrap}>
+        <div className={styles.record_list}>
+          {recordList.length ? (
+            recordList.map((d, i) => (
+              <div className={styles.news_item} key={i}>
+                <div className={styles.item_wrap}>
+                  <div className={styles.log_title}>
+                    <p>
+                      <span>
+                        {d.cityName}
+                        {d.eventType}
+                      </span>
+                      <span className={styles[d.label]}>
+                        {d.label === "warning" ? "警告" : ""}
+                        {d.label !== "success" &&
+                        d.label !== "regular" &&
+                        d.label !== "warning"
+                          ? "异常"
+                          : ""}
+                      </span>
+                    </p>
+                    <span className={styles.time}>{d.cutTime}</span>
+                  </div>
+                  <div className={styles.log_desc}>{d.desc}</div>
                 </div>
-                <div className={styles.log_desc}>{d.desc}</div>
               </div>
-            </div>
-          ))
-        ) : (
-          <p className={styles.no_data}>暂无更新</p>
-        )}
+            ))
+          ) : (
+            <p className={styles.no_data}>暂无更新</p>
+          )}
+        </div>
       </div>
     </div>
   );

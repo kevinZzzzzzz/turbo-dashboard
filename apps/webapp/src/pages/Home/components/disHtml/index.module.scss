@@ -1,11 +1,11 @@
 .page {
   width: 100%;
   height: 100%;
-  background: #1d1f28 url(@/assets/images/bg.png) no-repeat;
+  background: #1d1f28 url(@/assets/images/chartBg.png) no-repeat;
   background-position: center center;
   background-size: 100% 100%;
   display: grid;
-  grid-template-columns: 67% 33%;
+  grid-template-columns: 65% 35%;
   &_pageLeft {
     position: relative;
     &_title {
@@ -53,8 +53,8 @@
     &_caption {
       z-index: 2;
       position: absolute;
-      top: 60%;
-      left: 2%;
+      // top: 60%;
+      // left: 2%;
       &_mark {
         width: 100%;
         display: flex;
@@ -88,7 +88,9 @@
         // bottom: 10%;
         // left: 2%;
         border: 1px solid #26292d;
-        padding: 10px 20px;
+        padding: 40px;
+        background: url("@/assets/images/notificationBg.png") no-repeat;
+        background-size: 100% 100%;
       }
     }
   }
@@ -104,43 +106,51 @@
   margin-bottom: 2%;
 }
 .realTime {
-  max-height: 100vh;
-  border-left: 1px solid #3f444b;
+  padding-top: 24px;
+  padding-bottom: 44px;
+  box-sizing: border-box;
+  height: 100vh;
+  margin-right: 50px;
+  display: flex;
+  flex-direction: column;
   &_header {
     padding: 10px 15px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    background: #1d1f28 url(@/assets/images/supervisoryTop.png) no-repeat;
+    background-size: 100% 100%;
+    padding-left: 30px;
+    flex-shrink: 0;
     &_title {
       color: #fff;
       font-size: 30px;
     }
     &_num {
-      padding: 5px 10px;
+      padding: 5px;
       margin-left: 15px;
-      min-width: 40px;
-      font-size: 24px;
+      min-width: 30px;
+      font-size: 16px;
       color: #f5f5f5;
-      background: #50587c;
+      background: #ffb24f;
       font-weight: 700;
-      border-radius: 10px;
+      border-radius: 4px;
     }
   }
-  &_main {
-    max-height: calc(100vh - 50px);
-    overflow: hidden;
-    background-image: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0),
-      #fff 70%
-    ); // 尾部透明度降低
-    background-clip: text; // 背景裁剪为文字形状
-    -webkit-background-clip: text; // 兼容性属性
+  &_wrap {
+    flex: 1;
+    padding: 8px 30px 30px;
+    box-sizing: border-box;
+    overflow-y: hidden;
+    background: #1d1f28 url(@/assets/images/supervisoryBg.png) no-repeat;
+    background-size: 100% 100%;
     color: transparent; // 文字透明
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 10px;
-    padding-bottom: 10px;
+  }
+  &_main {
+    overflow-y: hidden;
 
     &-empty {
       font-size: 24px;
@@ -160,9 +170,9 @@
 
 .eventItem {
   width: 100%;
-  padding: 5px 16px 10px 8px;
+  padding: 27px 0px 18px 0px;
   margin: 0px;
-  border-bottom: 1px solid #26292d;
+  border-bottom: 1px solid #75a3ce;
   &_header {
     display: flex;
     justify-content: space-between;
@@ -173,23 +183,23 @@
       align-items: center;
       p {
         color: #fff;
-        font-size: 22px;
+        font-size: 18px;
       }
       span {
         color: #ffa500;
-        font-size: 18px;
+        font-size: 16px;
         margin-left: 10px;
       }
     }
     &_right {
-      color: #5e6e84;
+      color: #a6cff5;
       margin-right: 3px;
-      font-size: 22px;
+      font-size: 16px;
     }
   }
   &_main {
-    color: #5e6e84;
-    font-size: 22px;
+    color: #a6cff5;
+    font-size: 16px;
     padding: 0 5px;
   }
 }
@@ -205,8 +215,8 @@
 }
 
 .statisComp {
-  min-height: 200px;
-  max-height: 500px;
+  height: 400px;
+  width: 300px;
   overflow: auto;
   display: grid;
   grid-template-columns: 1fr;

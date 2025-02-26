@@ -6,7 +6,7 @@ import RealTimeRecord from "./realTimeRecord";
 import StatisComp from "./statisComp";
 import UseFacility from "@/hooks/useFacility";
 import UseReload from "@/hooks/useReload";
-
+import { areaMap } from "@/constant/area";
 const bloodInventoryList = [
   {
     label: "红细胞",
@@ -244,6 +244,13 @@ function DisPage(props: any) {
       },
     );
   };
+
+  const [notificationPos, setNotificationPos] = useState({});
+
+  useEffect(() => {
+    setNotificationPos(areaMap[area]["notificationPos"]);
+  }, []);
+
   return (
     <div className={styles.page}>
       <div className={styles.page_pageLeft}>
@@ -267,7 +274,7 @@ function DisPage(props: any) {
             );
           })}
         </ul>
-        <div className={styles.page_pageLeft_caption}>
+        <div className={styles.page_pageLeft_caption} style={notificationPos}>
           <div className={styles.page_pageLeft_caption_mark}>
             <div className={styles.page_pageLeft_caption_mark_img}></div>
             <ul className={styles.page_pageLeft_caption_mark_list}>
