@@ -31,7 +31,7 @@ function App() {
     // 获取链接上参数 并存储再sessionStorage, 默认江苏 -> js
     const area = getUrlParamsByKey("area");
     const areaT = sessionStorage.getItem("area");
-    if (area !== areaT) {
+    if (!area || area !== areaT) {
       sessionStorage.removeItem("facilityInfo");
       sessionStorage.setItem("area", area ? area : "js");
     }

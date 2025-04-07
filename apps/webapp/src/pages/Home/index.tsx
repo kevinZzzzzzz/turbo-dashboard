@@ -25,7 +25,7 @@ const componentMap = {
 };
 
 function HomePage(props: any) {
-  const area = sessionStorage.getItem("area");
+  const area = sessionStorage.getItem("area") || "js";
   const [switcherNum, setSwitcherNum] = useState(1); // 页码
   const [isMounted, setIsMounted] = useState(false);
   // 根据页码切换对应组件
